@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CategoryTable from './Components/EditCategory';
+import EditCategory from './Components/EditCategory';
 
+import AdminRoute from './Components/AdminRoutes';
+import 'semantic-ui-css/semantic.min.css';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/Category" element={ <AdminRoute> <CategoryTable /> </AdminRoute> } />
+         <Route path="/AddCategory/" element={ <AdminRoute>   <EditCategory /> </AdminRoute> } />
+        <Route path="/EditCategory/:id" element={ <AdminRoute>   <EditCategory /> </AdminRoute> } />
+        {/* <Route path="/Book" element={ <AdminRoute>   <BookTable /> </AdminRoute>} />
+         <Route path="/AddBook/" element={ <AdminRoute>   <EditBook /> </AdminRoute> } />
+        <Route path="/EditBook/:id" element={ <AdminRoute><EditBook /> </AdminRoute>} />
+        <Route path="/Author" element={ <AdminRoute>   <AuthorTable /> </AdminRoute>} />
+         <Route path="/AddAuthor/" element={ <AdminRoute>   <EditAuthor /> </AdminRoute> } />
+        <Route path="/EditAuthor/:id" element={ <AdminRoute><EditAuthor /> </AdminRoute>} /> */}
+      </Routes>
+    </Router>
   );
 }
 
