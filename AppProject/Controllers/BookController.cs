@@ -63,6 +63,12 @@ namespace API.Controllers
             var model = await service.GetCategorySelectListAsync(cancellationToken);
             return Ok(model);
         }
+        [HttpGet("GetPublishers")]
+        public async Task<IActionResult> GetPublishers(CancellationToken cancellationToken)
+        {
+            var model = await service.GetPublisherSelectListAsync(cancellationToken);
+            return Ok(model);
+        }
 
     }
 }

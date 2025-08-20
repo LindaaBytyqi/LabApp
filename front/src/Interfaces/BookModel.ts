@@ -1,13 +1,15 @@
 export interface BookModel{
     id:string|null;
     title:string|null;
+    description:string|null;
     isbn:string|null;
     price:number|null;
     stockQty: number | null;
-    publisher: string | null;
     publishedDate: string | null; // ose Date nëse do me e përdor si objekt Date
     photoUrl?: string | null;
-
+    categoryName: string | null;
     categoryId: string | null;
+    publisherId: string | null;
+    publisherName: string | null;
     authorIds?: string[];
 }

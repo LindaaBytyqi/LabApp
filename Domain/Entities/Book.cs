@@ -15,13 +15,15 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         public int StockQty { get; set; }
         public DateTime PublishedDate { get; set; }
-        public string Publisher { get; set; }
         public string? PhotoUrl { get; set; }
         public Guid CategoryId { get; set; }
-    
         public Category Category { get; set; }
+        public Publisher Publisher { get; set; }
+        public Guid PublisherId { get; set; }
        // public ICollection<BookAuthor> BookAuthors { get; set; }
         public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
+
+       // public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
     }
 
 }

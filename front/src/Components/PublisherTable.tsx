@@ -12,53 +12,53 @@ import {
 } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import { Link, useNavigate } from "react-router-dom";
-import { CategoryModel } from "../Interfaces/CategoryModel";
-import { CategoryService } from "../Services/CategoryService";
+import { PublisherModel } from "../Interfaces/PublisherModel";
+import { PublisherService } from "../Services/PublisherService";
 
-export default function CategoryTable() {
-  const [categories, setCategories] = useState<CategoryModel[]>([]);
+export default function PublisherTable() {
+  const [publishers, setPublishers] = useState<PublisherModel[]>([]);
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
-  const [deleteCategoryId, setDeleteCategoryId] = useState<string>("");
+  const [deletePublisherId, setDeletePublisherId] = useState<string>("");
   
   const navigate = useNavigate();
   useEffect(()=>{
     const fetchData = async () => {
-      const result = await CategoryService.GetAllCategories();
-      setCategories(result);
+      const result = await PublisherService.GetAllPublishers();
+      setPublishers(result);
     }
     fetchData();
   }, []);
 
-  function deleteCategories(id: string) {
+  function deletePublishers(id: string) {
     setOpenConfirm(true);
-    setDeleteCategoryId(id);
+    setDeletePublisherId(id);
   }
 
-  async function confirmedDeleteCategory(id: string) {
-    var result = await CategoryService.DeleteCategory(id);
-    setCategories(categories.filter((category) => category.id !== id));
+  async function confirmedDeletePublisher(id: string) {
+    var result = await PublisherService.DeletePublisher(id);
+    setPublishers(publishers.filter((publisher) => publisher.id !== id));
     setOpenConfirm(false);
-    setDeleteCategoryId("");
+    setDeletePublisherId("");
   }
 
   function sendToDetails(id:string | null) {
-    navigate(`/EditCategory/${id}`);
+    navigate(`/EditPublisher/${id}`);
   }
 
-  function AddCategory() {
-    navigate(`/AddCategory`);
+  function AddPublisher() {
+    navigate(`/AddPublisher`);
   }
 
   return (
     <Fragment>
       <div className="mt-5 d-flex align-items-center">
-        <h1 style={{ marginLeft: "30px" }}>Category</h1>
+        <h1 style={{ marginLeft: "30px" }}>Publisher</h1>
         <Button
           type="button"
           className="ui positive basic button ms-4"
-          onClick={() => AddCategory()}
+          onClick={() => AddPublisher()}
         >
-          Add New Category
+          Add New Publisher
         </Button>
         <div className="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
       </div>
@@ -72,7 +72,7 @@ export default function CategoryTable() {
         </TableHeader>
 
         <TableBody>
-          {categories.map((item) => (
+          {publishers.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.name}</TableCell>
               <TableCell>
@@ -87,7 +87,7 @@ export default function CategoryTable() {
                   type="button"
                   className="btn btn-danger"
                   negative
-                  onClick={() => deleteCategories(item.id!)}
+                  onClick={() => deletePublishers(item.id!)}
                 >
                   Delete
                 </Button>
@@ -97,7 +97,7 @@ export default function CategoryTable() {
           <Confirm
             open={openConfirm}
             onCancel={() => setOpenConfirm(false)}
-            onConfirm={() => confirmedDeleteCategory(deleteCategoryId!)}
+            onConfirm={() => confirmedDeletePublisher(deletePublisherId!)}
           />
         </TableBody>
       </Table>

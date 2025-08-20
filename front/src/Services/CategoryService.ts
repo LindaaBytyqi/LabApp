@@ -2,7 +2,7 @@
 import { CategoryModel } from "../Interfaces/CategoryModel";
 import axios from "axios";
 export class CategoryService {
-    private static baseUrl = "https://localhost:7292/api/Category";
+    private static baseUrl = "https://localhost:7141/api/Category";
     public static async DeleteCategory(id: string): Promise<void> {
       var result = await axios.delete(`${CategoryService.baseUrl}/${id}`);
     }

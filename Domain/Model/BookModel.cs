@@ -17,14 +17,20 @@ namespace Domain.Model
         public decimal Price { get; set; }
         public int StockQty { get; set; }
         public DateTime PublishedDate { get; set; }
-        public string Publisher { get; set; }
         public string? PhotoUrl { get; set; }
         public IFormFile? Photo { get; set; }
 
         // 🔗 Lidhja me Category
         public Guid CategoryId { get; set; }  // Foreign Key
-        public Category Category { get; set; }
+        //public Category Category { get; set; }
         public string CategoryName { get; set; }
-        public List<AuthorModel> Authors { get; set; }
+        public Guid PublisherId { get; set; }
+        public string PublisherName { get; set; }
+        //public List<AuthorModel> Authors { get; set; }
+        public List<Guid> AuthorIds { get; set; } = new List<Guid>();
+
+        public List<AuthorModel> Authors { get; set; } = new();
+        //public List<string> AuthorIds { get; set; } = new List<string>();
+        //public List<AuthorModel> Authors { get; set; } = new List<AuthorModel>();
     }
 }

@@ -12,53 +12,53 @@ import {
 } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import { Link, useNavigate } from "react-router-dom";
-import { CategoryModel } from "../Interfaces/CategoryModel";
-import { CategoryService } from "../Services/CategoryService";
+import { AuthorModel } from "../Interfaces/AuthorModel";
+import { AuthorService } from "../Services/AuthorService";
 
-export default function CategoryTable() {
-  const [categories, setCategories] = useState<CategoryModel[]>([]);
+export default function AuthorTable() {
+  const [authors, setAuthors] = useState<AuthorModel[]>([]);
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
-  const [deleteCategoryId, setDeleteCategoryId] = useState<string>("");
+  const [deleteAuthorId, setDeleteAuthorId] = useState<string>("");
   
   const navigate = useNavigate();
   useEffect(()=>{
     const fetchData = async () => {
-      const result = await CategoryService.GetAllCategories();
-      setCategories(result);
+      const result = await AuthorService.GetAllAuthors();
+      setAuthors(result);
     }
     fetchData();
   }, []);
 
-  function deleteCategories(id: string) {
+  function deleteAuthors(id: string) {
     setOpenConfirm(true);
-    setDeleteCategoryId(id);
+    setDeleteAuthorId(id);
   }
 
-  async function confirmedDeleteCategory(id: string) {
-    var result = await CategoryService.DeleteCategory(id);
-    setCategories(categories.filter((category) => category.id !== id));
+  async function confirmedDeleteAuthor(id: string) {
+    var result = await AuthorService.DeleteAuthor(id);
+    setAuthors(authors.filter((author) => author.id !== id));
     setOpenConfirm(false);
-    setDeleteCategoryId("");
+    setDeleteAuthorId("");
   }
 
   function sendToDetails(id:string | null) {
-    navigate(`/EditCategory/${id}`);
+    navigate(`/EditAuthor/${id}`);
   }
 
-  function AddCategory() {
-    navigate(`/AddCategory`);
+  function AddAuthor() {
+    navigate(`/AddAuthor`);
   }
 
   return (
     <Fragment>
       <div className="mt-5 d-flex align-items-center">
-        <h1 style={{ marginLeft: "30px" }}>Category</h1>
+        <h1 style={{ marginLeft: "30px" }}>Author</h1>
         <Button
           type="button"
           className="ui positive basic button ms-4"
-          onClick={() => AddCategory()}
+          onClick={() => AddAuthor()}
         >
-          Add New Category
+          Add New Author
         </Button>
         <div className="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
       </div>
@@ -66,15 +66,21 @@ export default function CategoryTable() {
       <Table striped>
         <TableHeader>
           <TableRow>
-          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>FullName</TableHeaderCell>
+          <TableHeaderCell>Bio</TableHeaderCell>
+          <TableHeaderCell>DateOfBirth</TableHeaderCell>
+          <TableHeaderCell>Country</TableHeaderCell>
             <TableHeaderCell>Actions</TableHeaderCell>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {categories.map((item) => (
+          {authors.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.name}</TableCell>
+              <TableCell>{item.bio}</TableCell>
+              <TableCell>{item.dateOfBirth}</TableCell>
+              <TableCell>{item.country}</TableCell>
               <TableCell>
                 <Button
                   type="button"
@@ -87,7 +93,7 @@ export default function CategoryTable() {
                   type="button"
                   className="btn btn-danger"
                   negative
-                  onClick={() => deleteCategories(item.id!)}
+                  onClick={() => deleteAuthors(item.id!)}
                 >
                   Delete
                 </Button>
@@ -97,7 +103,7 @@ export default function CategoryTable() {
           <Confirm
             open={openConfirm}
             onCancel={() => setOpenConfirm(false)}
-            onConfirm={() => confirmedDeleteCategory(deleteCategoryId!)}
+            onConfirm={() => confirmedDeleteAuthor(deleteAuthorId!)}
           />
         </TableBody>
       </Table>

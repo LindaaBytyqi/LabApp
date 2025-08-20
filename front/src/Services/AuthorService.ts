@@ -3,7 +3,7 @@ import { SelectListItem } from "../Interfaces/SelectListItem";
 import { AuthorModel } from "../Interfaces/AuthorModel";
 
 export class AuthorService {
-    private static baseUrl = "https://localhost:7292/api/Author";
+    private static baseUrl = "https://localhost:7141/api/Author";
     public static async DeleteAuthor(id: string): Promise<void> {
       var result = await axios.delete(`${AuthorService.baseUrl}/${id}`);
     }

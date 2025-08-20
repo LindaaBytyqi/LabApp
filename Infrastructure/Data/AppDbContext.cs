@@ -14,6 +14,7 @@ namespace Infrastructure.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         //public DbSet<Order> Orders { get; set; }
         //public DbSet<OrderItem>OrderItems { get; set; }
 
@@ -26,6 +27,7 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new PublisherConfiguration());
         }
     }
 }

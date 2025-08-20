@@ -17,5 +17,6 @@ namespace Domain.Interfaces
 
         public Task<List<ListItemModel>> GetAuthorSelectListAsync(CancellationToken cancellationToken);
         public Task<List<ListItemModel>> GetCategorySelectListAsync(CancellationToken cancellationToken);
+        public Task<List<ListItemModel>> GetPublisherSelectListAsync(CancellationToken cancellationToken);
     }
 }

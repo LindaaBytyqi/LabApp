@@ -28,6 +28,11 @@ namespace Infrastructure.Configuration
                    .WithMany(c => c.Books)
                    .HasForeignKey(x => x.CategoryId)
                    .OnDelete(DeleteBehavior.Restrict);
+            //Book->Publisher
+            builder.HasOne(x => x.Publisher)
+                  .WithMany(c => c.Books)
+                  .HasForeignKey(x => x.PublisherId)
+                  .OnDelete(DeleteBehavior.Restrict);
 
             // Many-to-many via BookAuthor
             builder.HasMany(x => x.BookAuthors)

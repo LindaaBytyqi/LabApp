@@ -2,27 +2,27 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Segment } from 'semantic-ui-react';
-import { CategoryModel } from '../Interfaces/CategoryModel';
-import { CategoryService } from '../Services/CategoryService';
+import { PublisherModel } from '../Interfaces/PublisherModel';
+import { PublisherService } from '../Services/PublisherService';
 import 'semantic-ui-css/semantic.min.css';
-export default function EditCategory() {
+export default function EditPublisher() {
   const { id } = useParams<{ id: string}>();
-  const [values, setValues] = useState<CategoryModel>({
+  const [values, setValues] = useState<PublisherModel>({
     id:id!,
     name: '',
-  } as CategoryModel);
+  } as PublisherModel);
 
   const navigate = useNavigate();
   const [category, setcategory] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       if(id!=null){
-     const response = await CategoryService.GetCategoriesDetails(id!);
+     const response = await PublisherService.GetPublishersDetails(id!);
      const userData = response;
      setValues({
        id: userData.id,
        name: userData.name
-     }as CategoryModel);
+     }as PublisherModel);
     }
   };
   
@@ -35,10 +35,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     let model = {
       id: values.id!,
       name: values.name,
-    } as CategoryModel;
+    } as PublisherModel;
 
     const response = await axios.post(
-      "https://localhost:7141/api/Category",
+      "https://localhost:7141/api/Publisher",
       model
     );
     setcategory(true);
@@ -48,7 +48,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 };
 function sendToOverview(){
-  navigate('/Category');
+  navigate('/Publisher');
  }
 const handleChange = (
   e: React.ChangeEvent<HTMLInputElement>
@@ -59,10 +59,10 @@ const handleChange = (
   return (
     <>  
     <h1 style={{ marginLeft: "15px", fontFamily: "Georgia", color: "black" }}>
-        {values.id != null ? 'Edit' : 'Add'} Category:)
+        {values.id != null ? 'Edit' : 'Add'} Publisher
       </h1>
       <p style={{ marginLeft: "15px", color: "#555", fontSize: "14px" }}>
-        Please fill out the form below to {values.id != null ? 'edit' : 'create'} a Category.
+        Please fill out the form below to {values.id != null ? 'edit' : 'create'} a Publisher.
       </p>
       <Segment clearing style={{ margin: "30px 30px 0 10px", boxShadow: "0px 4px 6px rgba(0,0,0,0.1)", border: "1px solid rgb(15 179 126 / 87%)" }}>
     <form className='ui form' style={{ backgroundColor: "#f9f9f9", padding: "20px" }} onSubmit={handleSubmit} autoComplete="off">
