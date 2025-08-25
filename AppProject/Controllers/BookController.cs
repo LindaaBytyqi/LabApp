@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace API.Controllers
 {
     [Route("api/[controller]")]
@@ -12,6 +13,7 @@ namespace API.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookService service;
+
         public BookController(IBookService bookService)
         {
             this.service = bookService;
@@ -31,14 +33,28 @@ namespace API.Controllers
             return Ok(model);
         }
 
-        [HttpPost]
-        //[Consumes("application/json")]
-        public async Task<IActionResult> CreateOrUpdate([FromForm] BookModel model, CancellationToken cancellationToken)
-        {
-            var book = await service.CreateOrUpdate(model, cancellationToken);
+        //[HttpPost]
+        ////[Consumes("application/json")]
+        //public async Task<IActionResult> CreateOrUpdate([FromForm] BookModel model, CancellationToken cancellationToken)
+        //{
+        //    var book = await service.CreateOrUpdate(model, cancellationToken);
 
-            return Ok(book);
+        //    return Ok(book);
+        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateOrUpdate([FromForm] BookModel model)
+        {
+            // Merr authorIds direkt nga FormData si koleksion string
+            if (Request.Form.TryGetValue("authorIds", out var authorValues))
+            {
+                model.AuthorIds = authorValues.Select(a => Guid.Parse(a)).ToList();
+            }
+
+            await service.CreateOrUpdate(model, CancellationToken.None);
+            return Ok(model);
         }
+
+
         [HttpGet("GetBookSelectListAsync")]
         public async Task<IActionResult> GetBookSelectListAsync(CancellationToken cancellationToken)
         {

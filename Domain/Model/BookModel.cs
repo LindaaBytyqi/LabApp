@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace Domain.Model
     {
         public Guid? Id { get; set; }
         public string Title { get; set; }
+        [Required]
+        [RegularExpression(@"^\d{13}$", ErrorMessage = "ISBN should only have 13 digits.")]
         public string ISBN { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
@@ -23,9 +26,9 @@ namespace Domain.Model
         // 🔗 Lidhja me Category
         public Guid CategoryId { get; set; }  // Foreign Key
         //public Category Category { get; set; }
-        public string CategoryName { get; set; }
+       // public string CategoryName { get; set; }
         public Guid PublisherId { get; set; }
-        public string PublisherName { get; set; }
+       // public string PublisherName { get; set; }
         //public List<AuthorModel> Authors { get; set; }
         public List<Guid> AuthorIds { get; set; } = new List<Guid>();
 

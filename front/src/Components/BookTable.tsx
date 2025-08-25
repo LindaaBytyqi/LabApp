@@ -74,7 +74,7 @@ export default function BookTable() {
             <TableHeaderCell>ISBN</TableHeaderCell>
             <TableHeaderCell>Description</TableHeaderCell>
             <TableHeaderCell>Price</TableHeaderCell>
-            <TableHeaderCell>StockQty</TableHeaderCell>
+            <TableHeaderCell>Stock</TableHeaderCell>
             <TableHeaderCell>PublishedDate</TableHeaderCell>
              <TableHeaderCell>PublisherName</TableHeaderCell>
             <TableHeaderCell>AuthorFullName</TableHeaderCell>
@@ -100,6 +100,7 @@ export default function BookTable() {
               <TableCell>{item.description}</TableCell>
               <TableCell>{item.isbn}</TableCell>
               <TableCell>{item.price}</TableCell>
+              <TableHeaderCell>{item.stockQty}</TableHeaderCell>
               <TableCell>{item.publishedDate}</TableCell>
               <TableCell>{item.publisherId}</TableCell>
              <TableCell>{item.authorIds}</TableCell>

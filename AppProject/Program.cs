@@ -54,6 +54,8 @@ app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
 
+app.UseStaticFiles();
+
 app.MapControllers();
 
 app.Run();

@@ -20,6 +20,8 @@ export default function EditBook() {
    const [authorList, setAuthorList] = useState<SelectListItem[]>([]);
   const [categoryList, setCategoryList] = useState<SelectListItem[]>([]);
   const [publisherList, setPublisherList] = useState<SelectListItem[]>([]);
+  const [isbnError, setIsbnError] = useState<string | null>(null);
+
   // const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
 
   const [values, setValues] = useState<BookModel>({
@@ -33,10 +35,10 @@ export default function EditBook() {
     price: null,
     photoUrl: '',
     //authorName:'',
-    categoryName:'',
+    //categoryName:'',
     categoryId:'',
     publisherId:'',
-    publisherName:'',
+   // publisherName:'',
     authorIds:[],
     // categoryId
   });
@@ -57,9 +59,9 @@ export default function EditBook() {
           photoUrl: response.photoUrl || '',
           authorIds: response.authorIds || [],  // <-- array
           categoryId:response.categoryId,
-          categoryName:response.categoryName,
+          //categoryName:response.categoryName,
            publisherId:response.publisherId,
-           publisherName:response.publisherName
+           //publisherName:response.publisherName
         });
         setImagePreview(response.photoUrl || null);
       }
@@ -110,51 +112,50 @@ useEffect(() => {
     fetchCategories();
     fetchPublishers();
   }, []);
-
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  // Kontrollo që Author dhe Category të jenë zgjedhur
-  if (!values.authorIds || !values.categoryId) {
-    alert("Author and Category must be selected.");
-    return;
-  }
-
   try {
-     const categoryName = categoryList.find(c => c.value === values.categoryId)?.text ?? '';
-     const publisherName=publisherList.find(c => c.value === values.publisherId)?.text ?? '';
-    if (selectedFile) {
-      // Dërgo me FormData nëse ka foto
-      const formData = new FormData();
-      formData.append('Id', values.id ?? '');
-      formData.append('Title', values.title ?? '');
-      formData.append('Description', values.description ?? '');
-      formData.append('Price', String(values.price ?? 0));
-      //values.authorIds?.forEach((id) => formData.append('AuthorIds', id));
-      formData.append('CategoryId', values.categoryId);
-      formData.append('CategoryName', categoryName);
-      formData.append('Photo', selectedFile);
-      formData.append('PhotoUrl', values.photoUrl ?? '');
-      formData.append("AuthorIds", JSON.stringify(values.authorIds));
-      formData.append('PublisherId', values.publisherId ?? '');
-       //formData.append('PublisherId', values.publisherId);
-      formData.append('PublisherName', publisherName);
-      //values.authorIds?.forEach((id) => formData.append('AuthorIds', id));
+    const formData = new FormData();
 
-      await axios.post('https://localhost:7141/api/Book', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-    } else {
-      // Dërgo si JSON nëse nuk ka foto
-      await BookService.EditOrAddBook(values);
+     if (values.id) {
+      formData.append("id", values.id);
     }
 
+    //formData.append("id", values.id || "");
+    formData.append("title", values.title || "");
+    formData.append("description", values.description || "");
+    formData.append("isbn", values.isbn || "");
+    formData.append("price", values.price?.toString() || "0");
+    formData.append("stockQty", values.stockQty?.toString() || "0");
+    formData.append("publishedDate", values.publishedDate || "");
+    formData.append("categoryId", values.categoryId || "");
+    formData.append("publisherId", values.publisherId || "");
+
+    if (selectedFile) {
+      formData.append("Photo", selectedFile);
+    }
+
+    // if (values.authorIds && values.authorIds.length > 0) {
+    //   values.authorIds.forEach((id) => formData.append("authorIds", id));
+    // }
+
+    (values.authorIds || []).forEach(id => formData.append("authorIds", id));
+    //values.authorIds?.forEach(id => formData.append("authorIds", id));
+
+     //formData.append("authorIds", JSON.stringify(values.authorIds || []));
+
+     const response = await axios.post("https://localhost:7141/api/Book", formData, {
+  headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    console.log("Book saved:", response.data);
     navigate('/book');
+
   } catch (error) {
-    console.error('Error saving book:', error);
+    console.error("Error saving book:", error);
     if (axios.isAxiosError(error)) {
-        console.error('Axios error response:', error.response?.data);
+      console.error("Axios error response:", error.response?.data);
     }
   }
 };
@@ -162,6 +163,14 @@ useEffect(() => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+
+     if (name === "isbn") {
+    if (!/^\d{13}$/.test(value)) {
+      setIsbnError("ISBN should only have 13 digits.");
+    } else {
+      setIsbnError(null);
+    }
+  }
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -243,6 +252,7 @@ useEffect(() => {
               onChange={handleChange}
               required
             />
+             {isbnError && <p style={{ color: "red" }}>{isbnError}</p>}
           </div>
           <div className="field">
             <label>Description</label>
@@ -300,10 +310,11 @@ useEffect(() => {
     options={authorList.map(a => ({
       key: a.key,
       text: a.text,
-      value: String(a.value)
+      value: a.value?.toString() || ""
     }))}
     value={values.authorIds}
-    onChange={(e, { value }) => setValues({ ...values, authorIds: value as string[] })}
+    onChange={(e, { value }) => 
+      setValues({ ...values, authorIds: value as string[] })}
   />
 </div>
 
@@ -341,7 +352,7 @@ useEffect(() => {
               required
             >
               <option value="">Select Publisher</option>
-              {categoryList.map((g) => (
+              {publisherList.map((g) => (
                 <option key={g.key} value={g.value!}>
                   {g.text}
                 </option>
