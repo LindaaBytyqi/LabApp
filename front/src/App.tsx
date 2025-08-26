@@ -9,6 +9,8 @@ import BookTable from './Components/BookTable';
 import EditBook from './Components/EditBook';
 import PublisherTable from './Components/PublisherTable';
 import EditPublisher from './Components/EditPublisher';
+import CartTable from './Components/CartTable';
+import EditCartItem from './Components/EditCart';
 import 'semantic-ui-css/semantic.min.css';
 import { Routes, Route } from 'react-router-dom';
 
@@ -30,6 +32,10 @@ function App() {
          <Route path="/Publisher" element={ <AdminRoute> <PublisherTable /> </AdminRoute> } />
          <Route path="/AddPublisher/" element={ <AdminRoute>   <EditPublisher /> </AdminRoute> } />
         <Route path="/EditPublisher/:id" element={ <AdminRoute>   <EditPublisher /> </AdminRoute> } />
+
+         <Route path="/Cart" element={ <AdminRoute> <CartTable /> </AdminRoute> } />
+         <Route path="/AddCart/" element={ <AdminRoute>   <EditCartItem /> </AdminRoute> } />
+        <Route path="/EditCart/:id" element={ <AdminRoute>   <EditCartItem /> </AdminRoute> } />
 
 
       </Routes>
