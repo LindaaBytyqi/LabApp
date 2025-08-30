@@ -29,6 +29,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddScoped<ICartService,CartService>(); 
+builder.Services.AddScoped<IOrderService,OrderService>();
 
 
 builder.Services.AddCors(options =>

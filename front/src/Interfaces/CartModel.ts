@@ -1,7 +1,7 @@
 import { CartItemModel } from "./CartItemModel";
 
 export interface CartModel {
-  Id: string;
-  UserId: string;
-  Items: CartItemModel[];
+  id: string;
+  userId: string;
+  items: CartItemModel[];
 }

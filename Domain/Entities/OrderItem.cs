@@ -8,9 +8,9 @@ namespace Domain.Entities
 {
     public class OrderItem
     {
-        public Guid Id { get; set; }
-        public int OrderId { get; set; }
-        public int BookId { get; set; }
+        public Guid Id { get; set; } 
+        public Guid OrderId { get; set; }   // ndryshuar në Guid
+        public Guid BookId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
 

@@ -8,9 +8,9 @@ import 'semantic-ui-css/semantic.min.css';
 
 export default function CartTable() {
   const [cart, setCart] = useState<CartModel>({
-    Id: "",
-    UserId: "some-user-id", // vendos UserId aktual
-    Items: []
+    id: "",
+    userId: "some-user-id", // vendos UserId aktual
+    items: []
   });
 
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
@@ -19,7 +19,7 @@ export default function CartTable() {
   const navigate = useNavigate();
 
   const fetchCart = async () => {
-    const result = await CartService.GetCart(cart.UserId);
+    const result = await CartService.GetCart(cart.userId);
     setCart(result);
   };
 
@@ -39,25 +39,25 @@ export default function CartTable() {
   };
 
   const confirmRemoveItem = async () => {
-    await CartService.RemoveFromCart(cart.UserId, deleteBookId);
+    await CartService.RemoveFromCart(cart.userId, deleteBookId);
     setCart({
       ...cart,
-      Items: cart.Items.filter(i => i.BookId !== deleteBookId)
+      items: cart.items.filter(i => i.bookId !== deleteBookId)
     });
     setOpenConfirm(false);
   };
 
   const handleClearCart = async () => {
-    await CartService.ClearCart(cart.UserId);
-    setCart({ ...cart, Items: [] });
+    await CartService.ClearCart(cart.userId);
+    setCart({ ...cart, items: [] });
   };
 
   const editItem = (bookId: string) => {
     navigate(`/EditCartItem/${bookId}`);
   };
 
-  const totalItems = cart.Items.reduce((acc, item) => acc + item.Quantity, 0);
-  const subtotal = cart.Items.reduce((acc, item) => acc + (item.Price * item.Quantity), 0);
+  const totalItems = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+  const subtotal = cart.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
 
 
@@ -79,15 +79,15 @@ export default function CartTable() {
         </Table.Header>
 
         <Table.Body>
-          {cart.Items.map((item) => (
-            <Table.Row key={item.BookId}>
-              <Table.Cell>{item.Title}</Table.Cell>
-              <Table.Cell>{item.Category}</Table.Cell>
-              <Table.Cell>{item.Price}</Table.Cell>
-              <Table.Cell>{item.Quantity}</Table.Cell>
+          {cart.items.map((item) => (
+            <Table.Row key={item.bookId}>
+              <Table.Cell>{item.title}</Table.Cell>
+              <Table.Cell>{item.category}</Table.Cell>
+              <Table.Cell>{item.price}</Table.Cell>
+              <Table.Cell>{item.quantity}</Table.Cell>
               <Table.Cell>
-                <Button color="green" onClick={() => editItem(item.BookId)}>Edit</Button>
-                <Button color="red" onClick={() => handleRemoveItem(item.BookId)}>Remove</Button>
+                <Button color="green" onClick={() => editItem(item.bookId)}>Edit</Button>
+                <Button color="red" onClick={() => handleRemoveItem(item.bookId)}>Remove</Button>
               </Table.Cell>
             </Table.Row>
           ))}
@@ -106,7 +106,8 @@ export default function CartTable() {
     <div>
       <span>Total Items: {totalItems} | </span>
       <strong>Subtotal: ${subtotal.toFixed(2)}</strong>
-      <Button color="green" style={{ marginLeft: "10px" }} onClick={() => navigate('/checkout')}>
+      <Button color="green" style={{ marginLeft: "10px" }} 
+      onClick={() =>  navigate('/checkout', { state: { cartItems: cart.items } })}>
         Checkout
       </Button>
     </div>

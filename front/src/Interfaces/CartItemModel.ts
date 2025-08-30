@@ -1,7 +1,7 @@
 export interface CartItemModel {
-  BookId: string;
-  Quantity: number;
-  Title: string;
-  Category: string;
-  Price: number;
+  bookId: string;
+  quantity: number;
+  title: string;
+  category: string;
+  price: number;
 }

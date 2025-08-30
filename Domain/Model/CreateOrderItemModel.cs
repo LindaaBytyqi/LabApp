@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Model
 {
-   public class OrderItemModel
+    public class CreateOrderItemModel
     {
-        public string Title { get; set; }   
+        public Guid BookId { get; set; }
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
     }
 }

@@ -15,7 +15,7 @@ import { CartModel } from "../Interfaces/CartModel";
 import { CartService } from "../Services/CartService";
 
 export default function CartTable() {
-  const [cart, setCart] = useState<CartModel>({ Id: '', UserId: '', Items: [] });
+  const [cart, setCart] = useState<CartModel>({ id: '', userId: '', items: [] });
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [deleteBookId, setDeleteBookId] = useState<string>("");
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function CartTable() {
 
   async function confirmedDeleteItem(bookId: string) {
     await CartService.RemoveFromCart(userId, bookId);
-    setCart({ ...cart, Items: cart.Items.filter(i => i.BookId !== bookId) });
+    setCart({ ...cart, items: cart.items.filter(i => i.bookId !== bookId) });
     setOpenConfirm(false);
     setDeleteBookId("");
   }
@@ -60,15 +60,15 @@ export default function CartTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {cart.Items.map((item) => (
-            <TableRow key={item.BookId}>
-              <TableCell>{item.Title}</TableCell>
-              <TableCell>{item.Category}</TableCell>
-              <TableCell>{item.Price}</TableCell>
-              <TableCell>{item.Quantity}</TableCell>
+          {cart.items.map((item) => (
+            <TableRow key={item.bookId}>
+              <TableCell>{item.title}</TableCell>
+              <TableCell>{item.category}</TableCell>
+              <TableCell>{item.price}</TableCell>
+              <TableCell>{item.quantity}</TableCell>
               <TableCell>
-                <Button color="green" onClick={() => editItem(item.BookId)}>Edit</Button>
-                <Button color="red" onClick={() => deleteItem(item.BookId)}>Delete</Button>
+                <Button color="green" onClick={() => editItem(item.bookId)}>Edit</Button>
+                <Button color="red" onClick={() => deleteItem(item.bookId)}>Delete</Button>
               </TableCell>
             </TableRow>
           ))}
