@@ -117,6 +117,7 @@ namespace Application.Services
                 {
                     BookId = item.BookId,
                     Quantity = item.Quantity,
+
                     Price = book.Price * item.Quantity
                 };
 
