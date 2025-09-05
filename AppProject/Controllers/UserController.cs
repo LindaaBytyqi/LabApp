@@ -1,8 +1,8 @@
-﻿using Domain.Interface;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+﻿using Domain.Interfaces;
 using Domain.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -11,12 +11,10 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService service;
-        
 
         public UserController(IUserService service)
         {
             this.service = service;
-           
         }
 
         //[AllowAnonymous]

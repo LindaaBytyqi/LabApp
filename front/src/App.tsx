@@ -13,14 +13,14 @@ import CartTable from './Components/CartTable';
 import EditCartItem from './Components/EditCart';
 import OrderTable from './Components/OrderTable';
 import OrderDetails from './Components/OrderDetails';
-//import Login from './Components/Login';
+import Login from './Components/Login';
 import 'semantic-ui-css/semantic.min.css';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
       <Routes>
-        {/* <Route path="/" element={<Login/>}/> */}
+           <Route path="/" element={<Login/>}/>
         <Route path="/Category" element={ <AdminRoute> <CategoryTable /> </AdminRoute> } />
          <Route path="/AddCategory/" element={ <AdminRoute>   <EditCategory /> </AdminRoute> } />
         <Route path="/EditCategory/:id" element={ <AdminRoute>   <EditCategory /> </AdminRoute> } />

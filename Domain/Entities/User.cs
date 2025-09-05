@@ -11,7 +11,10 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public string LastName { get; set; }
-        public string PersonalID { get; set; }
         public string PersonalEmail { get; set; }
+        public string Address { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }
