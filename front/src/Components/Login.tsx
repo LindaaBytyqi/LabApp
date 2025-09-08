@@ -35,7 +35,7 @@ export default function Login() {
        if (response.userRole === "Coordinator") {
         navigate("/CoordinatorDashboard");
       }else{
-        navigate("/OrariDitor");
+        navigate("/aa");
       }
     } catch (error) {
       alert("Login failed. Please check your credentials.");
@@ -47,7 +47,7 @@ export default function Login() {
   return (
     <div
       style={{
-        background: "linear-gradient(135deg,rgba(214, 211, 185, 1), #cad5dcff)",
+        background: "linear-gradient(135deg,rgba(235, 234, 223, 1), #cad5dcff)",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",

@@ -185,7 +185,7 @@ namespace Application.Services
                 
 
                 // Set derived properties
-                SetRoleSpecificFields(user, model);
+                //SetRoleSpecificFields(user, model);
 
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
