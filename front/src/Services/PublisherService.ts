@@ -21,5 +21,8 @@ export class PublisherService {
     const result = await axios.get(`${PublisherService.baseUrl}/GetPublishers`);
     return result.data;
   }
+     public static async CountPublishers():Promise<number>{ 
+  const result = await axios.get(`${PublisherService.baseUrl}/count`);
+  return result.data;
 }
-  
+}

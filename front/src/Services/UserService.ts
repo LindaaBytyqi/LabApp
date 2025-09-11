@@ -3,7 +3,7 @@ import { UserModel } from "../Interfaces/UserModel";
 import { toast } from "react-toastify";
 import { LoginModel } from "../Interfaces/LoginModel";
 import { AuthenticationModel } from "../Interfaces/AuthenticationModel";
-// import { store } from "../store";
+ import { store } from "../store";
 
 export class UserService {
   private static baseUrl = "https://localhost:7141/api/User";
@@ -86,6 +86,6 @@ export class UserService {
     return result.data;
   }
    public static isAdmin(): boolean{
-     return UserService.GetUserRole() == 'Admin';
+     return UserService.GetUserRole() ==='Admin';
   }
 }

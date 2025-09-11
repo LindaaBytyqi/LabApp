@@ -80,7 +80,7 @@ namespace Application.Services
             var userData = mapper.Map<UserModel>(user);
             if (userRoles.Contains("Admin")) userData.Role = Domain.Enum.Role.Admin;
             else if (userRoles.Contains("Coordinator")) userData.Role = Domain.Enum.Role.Coordinator;
-            else if (userRoles.Contains("Client")) userData.Role = Domain.Enum.Role.Client;
+          
             
 
           
@@ -205,7 +205,7 @@ namespace Application.Services
                 user.PersonalEmail = model.PersonalEmail;
                 user.Address = model.Address;
                
-                SetRoleSpecificFields(user, model);
+                //SetRoleSpecificFields(user, model);
 
                 var roles = await userManager.GetRolesAsync(user);
                 await userManager.RemoveFromRolesAsync(user, roles);

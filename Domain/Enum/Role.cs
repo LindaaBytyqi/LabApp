@@ -10,7 +10,6 @@ namespace Domain.Enum
     {
         Admin,
         Coordinator,
-        Client
 
     }
 }

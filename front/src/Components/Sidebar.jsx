@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
+import { MdDashboard, MdCategory } from "react-icons/md";
 import { 
   FaBook,        
   FaUserEdit,    
   FaBuilding,    
-  FaSignOutAlt,  
+  // FaSignOutAlt,  
 } from "react-icons/fa";
 import { UserService } from "../Services/UserService";
 import { Button } from "semantic-ui-react";

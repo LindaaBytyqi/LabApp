@@ -21,7 +21,7 @@ public class DbInitialization
     {
         await _context.Database.EnsureCreatedAsync();
 
-        var roles = new[] { "Admin", "Coordiantor", "Client" };
+        var roles = new[] { "Admin", "Coordiantor" };
 
         foreach (var roleName in roles)
         {

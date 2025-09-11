@@ -21,5 +21,9 @@ export class CategoryService {
     const result = await axios.get(`${CategoryService.baseUrl}/GetAuthors`);
     return result.data;
   }
+  public static async GetBooksByCategory(): Promise<{ name: string; value: number }[]> {
+    const result = await axios.get(`${CategoryService.baseUrl}/GetBooksByCategory`);
+    return result.data;
+  }
+
 }
-  

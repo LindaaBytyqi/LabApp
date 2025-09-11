@@ -26,4 +26,9 @@ export class AuthorService {
   const result = await axios.get(`${AuthorService.baseUrl}/GetGroupSelectListAsync`);
   return result.data;
 }
+   public static async CountAuthors():Promise<number>{ 
+  const result = await axios.get(`${AuthorService.baseUrl}/count`);
+  return result.data;
+}
+
 }

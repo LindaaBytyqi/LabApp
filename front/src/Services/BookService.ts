@@ -34,6 +34,9 @@ export class BookService {
   const result = await axios.get(`${BookService.baseUrl}/GetPublishers`);
   return result.data;
   }
+   public static async CountBooks():Promise<number>{ 
+  const result = await axios.get(`${BookService.baseUrl}/count`);
+  return result.data;
+}
 
 }
-  
