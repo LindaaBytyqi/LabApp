@@ -101,6 +101,11 @@ namespace Application.Services
 
             return model;
         }
+
+        public async Task<int> GetAuthorsCount(CancellationToken cancellationToken)
+        {
+            return await appDbContext.Authors.CountAsync(cancellationToken);
+        }
     }
 }
 

@@ -18,16 +18,13 @@ export class AuthorService {
    public static async EditOrAddAuthor(model: AuthorModel): Promise<void> {
     const result = await axios.post(`${AuthorService.baseUrl}`, model);
   }
-  // public static async GetSelectList() : Promise<GroupModel[]> {
-  //   const result = await axios.get(`${GroupService.baseUrl}/GetGroupSelectListAsync`);
-  //   return result.data;
-  // }
+ 
   public static async GetSelectList(): Promise<SelectListItem[]> {
-  const result = await axios.get(`${AuthorService.baseUrl}/GetGroupSelectListAsync`);
+  const result = await axios.get(`${AuthorService.baseUrl}/GetAuthors`);
   return result.data;
 }
    public static async CountAuthors():Promise<number>{ 
-  const result = await axios.get(`${AuthorService.baseUrl}/count`);
+  const result = await axios.get(`${AuthorService.baseUrl}/countAuthors`);
   return result.data;
 }
 

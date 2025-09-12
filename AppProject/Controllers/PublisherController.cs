@@ -63,5 +63,12 @@ namespace API.Controllers
             var model = await service.GetPublisherSelectListAsync(cancellationToken);
             return Ok(model);
         }
+
+        [HttpGet("countPublishers")]
+        public async Task<IActionResult> GetPublishersCount(CancellationToken cancellationToken)
+        {
+            var count = await service.GetPublishersCount(cancellationToken);
+            return Ok(count);
+        }
     }
 }

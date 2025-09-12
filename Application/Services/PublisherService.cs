@@ -89,5 +89,10 @@ namespace Application.Services
 
             return model;
         }
+
+        public async Task<int> GetPublishersCount(CancellationToken cancellationToken)
+        {
+            return await appDbContext.Publishers.CountAsync(cancellationToken);
+        }
     }
 }

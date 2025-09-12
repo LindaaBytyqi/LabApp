@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Model;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 public class BookService : IBookService
 {
@@ -143,5 +144,9 @@ public class BookService : IBookService
         return await _context.Publishers
                     .Select(c => new ListItemModel { Id = c.Id, Name = c.Name })
                     .ToListAsync(cancellationToken);
+    }
+    public async Task<int> GetBooksCount(CancellationToken cancellationToken)
+    {
+        return await _context.Books.CountAsync(cancellationToken);
     }
 }

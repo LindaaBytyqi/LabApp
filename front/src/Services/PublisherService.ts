@@ -17,12 +17,13 @@ export class PublisherService {
    public static async EditOrAddPublisher(model: PublisherModel): Promise<void> {
     const result = await axios.post(`${PublisherService.baseUrl}`, model);
   }
+  //GetPublishers
   public static async GetSelectList() : Promise<PublisherModel[]> {
-    const result = await axios.get(`${PublisherService.baseUrl}/GetPublishers`);
+    const result = await axios.get(`${PublisherService.baseUrl}/GetPublisherSelectListAsync`);
     return result.data;
   }
      public static async CountPublishers():Promise<number>{ 
-  const result = await axios.get(`${PublisherService.baseUrl}/count`);
+  const result = await axios.get(`${PublisherService.baseUrl}/countPublishers`);
   return result.data;
 }
 }

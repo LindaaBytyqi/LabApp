@@ -14,5 +14,7 @@ namespace Domain.Interfaces
         public Task DeleteById(Guid Id, CancellationToken cancellationToken);
         public Task<PublisherModel> GetById(Guid Id, CancellationToken cancellationToken);
         public Task<List<ListItemModel>> GetPublisherSelectListAsync(CancellationToken cancellationToken);
+
+        Task<int> GetPublishersCount(CancellationToken cancellationToken);
     }
 }

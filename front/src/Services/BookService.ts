@@ -35,7 +35,7 @@ export class BookService {
   return result.data;
   }
    public static async CountBooks():Promise<number>{ 
-  const result = await axios.get(`${BookService.baseUrl}/count`);
+  const result = await axios.get(`${BookService.baseUrl}/countBooks`);
   return result.data;
 }
 

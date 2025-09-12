@@ -17,8 +17,9 @@ export class CategoryService {
    public static async EditOrAddCategory(model: CategoryModel): Promise<void> {
     const result = await axios.post(`${CategoryService.baseUrl}`, model);
   }
+  //GetCategorySelectListAsync
   public static async GetSelectList() : Promise<CategoryModel[]> {
-    const result = await axios.get(`${CategoryService.baseUrl}/GetAuthors`);
+    const result = await axios.get(`${CategoryService.baseUrl}/GetCategorySelectListAsync`);
     return result.data;
   }
   public static async GetBooksByCategory(): Promise<{ name: string; value: number }[]> {

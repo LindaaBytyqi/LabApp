@@ -52,5 +52,12 @@ namespace API.Controllers
             var model = await service.GetAuthorSelectListAsync(cancellationToken);
             return Ok(model);
         }
+
+        [HttpGet("countAuthors")]
+        public async Task<IActionResult> GetAuthorsCount(CancellationToken cancellationToken)
+        {
+            var count = await service.GetAuthorsCount(cancellationToken);
+            return Ok(count);
+        }
     }
 }
