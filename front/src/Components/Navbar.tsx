@@ -89,7 +89,7 @@ export default function Navbar() {
       style={{
         padding: "10px 20px",
         alignItems: "center",
-        position: "fixed", // gjithmonë lart
+        position: "fixed", // lart
         top: 0,
         left:0,
         right:0,

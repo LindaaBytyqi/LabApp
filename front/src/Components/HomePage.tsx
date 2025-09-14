@@ -93,6 +93,7 @@ import { CategoryService } from "../Services/CategoryService";
 import { Container, Grid, Header, Button, Dropdown, Card, Image } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 
 export default function HomePage() {
@@ -198,6 +199,7 @@ export default function HomePage() {
         ))}
       </Grid>
     </Container>
+     <Footer/>
      </>
   );
 }

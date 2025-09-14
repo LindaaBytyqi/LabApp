@@ -17,7 +17,6 @@ import CartTable from "./Components/CartTable";
 import EditCartItem from "./Components/EditCart";
 import OrderTable from "./Components/OrderTable";
 import OrderDetails from "./Components/OrderDetails";
-
 import HomePage from "./Components/HomePage";
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
       {/* Login pa sidebar */}
       <Route path="/" element={<Login />} />
         <Route path="/home" element={<HomePage/>}/>
-     
 
       
       {/* CRUD dhe rrugë tjera pa sidebar */}
