@@ -18,6 +18,7 @@ import EditCartItem from "./Components/EditCart";
 import OrderTable from "./Components/OrderTable";
 import OrderDetails from "./Components/OrderDetails";
 import HomePage from "./Components/HomePage";
+import AdminDashboard from "./Components/AdminDashboard";
 function App() {
   return (
     <Routes>
@@ -25,6 +26,9 @@ function App() {
       <Route path="/" element={<Login />} />
         <Route path="/home" element={<HomePage/>}/>
 
+       <Route element={<LayoutWithSideBar />}>
+        <Route path="/AdminDashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+         </Route>
       
       {/* CRUD dhe rrugë tjera pa sidebar */}
       <Route element={<EmptyLayout />}>

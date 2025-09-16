@@ -407,8 +407,8 @@ namespace Application.Services
             IdentityModelEventSource.ShowPII = true;
 
             var userData = mapper.Map<UserModel>(user);
-            if (userRoles.Contains("Admin")) userData.Role = Domain.Enum.Role.Admin;
-            else if (userRoles.Contains("Coordinator")) userData.Role = Domain.Enum.Role.Coordinator;
+            if (userRoles.Contains("Admin")) userData.Role = Domain.Enum.UserRoleEnum.Admin;
+            else if (userRoles.Contains("Coordinator")) userData.Role = Domain.Enum.UserRoleEnum.Coordinator;
 
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
@@ -555,11 +555,11 @@ namespace Application.Services
 
             if (roles.Any(x => x == "Admin"))
             {
-                model.Role = Domain.Enum.Role.Admin;
+                model.Role = Domain.Enum.UserRoleEnum.Admin;
             }
             else if (roles.Any(x => x == "Coordinator"))
             {
-                model.Role = Domain.Enum.Role.Coordinator;
+                model.Role = Domain.Enum.UserRoleEnum.Coordinator;
             }
 
             return model;
@@ -578,14 +578,34 @@ namespace Application.Services
                 var model = mapper.Map<UserModel>(user);
 
                 if (roles.Contains("Admin"))
-                    model.Role = Domain.Enum.Role.Admin;
+                    model.Role = Domain.Enum.UserRoleEnum.Admin;
                 else if (roles.Contains("Coordinator"))
-                    model.Role = Domain.Enum.Role.Coordinator;
+                    model.Role = Domain.Enum.UserRoleEnum.Coordinator;
 
                 userModels.Add(model);
             }
 
             return userModels;
+        }
+
+        public async Task DeleteUser(Guid Id, CancellationToken cancellationToken)
+        {
+            var user = await userManager.FindByIdAsync(Id.ToString());
+
+            if (user != null)
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    var errorMessages = string.Join(", ", result.Errors.Select(e => e.Description));
+                    throw new Exception($"Dështoi për fshirjen e përdoruesit: {errorMessages}");
+                }
+            }
+            else
+            {
+                throw new Exception("Përdoruesi nuk u gjet për fshirje.");
+            }
         }
 
         public async Task<List<UserModel>> GetAllAdminsAsync(CancellationToken cancellationToken)
@@ -597,7 +617,7 @@ namespace Application.Services
             foreach (var user in adminUsers)
             {
                 var model = mapper.Map<UserModel>(user);
-                model.Role = Domain.Enum.Role.Admin;
+                model.Role = Domain.Enum.UserRoleEnum.Admin;
 
                 models.Add(model);
             }

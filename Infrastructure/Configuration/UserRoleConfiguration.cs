@@ -14,17 +14,30 @@ namespace Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             //builder.HasKey(x => new { x.UserId, x.RoleId });
-            //builder.HasKey(x => x.Id);
+            ////builder.HasKey(x => x.Id);
+            //builder.HasOne(ur => ur.User)
+            //       .WithMany(u => u.UserRoles)
+            //       .HasForeignKey(ur => ur.UserId)
+            //         .OnDelete(DeleteBehavior.Restrict);
+
+
+            //builder.HasOne(ur => ur.Role)
+            //    .WithMany(r => r.UserRoles)
+            //    .HasForeignKey(ur => ur.RoleId)
+            //     .OnDelete(DeleteBehavior.Restrict);
+
+
+            //builder.HasKey(ur => new { ur.UserId, ur.RoleId }); // <- ky është primary key
+
             builder.HasOne(ur => ur.User)
                    .WithMany(u => u.UserRoles)
                    .HasForeignKey(ur => ur.UserId)
-                     .OnDelete(DeleteBehavior.Restrict);
-
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(ur => ur.Role)
-                .WithMany(r => r.UserRoles)
-                .HasForeignKey(ur => ur.RoleId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                   .WithMany(r => r.UserRoles)
+                   .HasForeignKey(ur => ur.RoleId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

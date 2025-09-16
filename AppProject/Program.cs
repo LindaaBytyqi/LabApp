@@ -1,15 +1,17 @@
+using Application.MappingsProfile;
 using Application.Services;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
@@ -38,13 +40,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies());
-});
-builder.Services.AddDbContext<AppDbContext>(options =>options.UseSqlServer
-(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(EmptyProfile).Assembly));
+
 
 
 
@@ -127,6 +124,9 @@ builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddScoped<ICartService,CartService>(); 
 builder.Services.AddScoped<IOrderService,OrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<DbInitialization>();
+builder.Services.AddScoped<IAuthorizationManager, AuthorizationManager>();
+//builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddCors(options =>
 {
@@ -152,15 +152,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAllOrigin");
+//app.UseCors("AllowAllOrigin");
+
+
 using (var scope = app.Services.CreateAsyncScope())
 {
     var dbInitialization = scope.ServiceProvider.GetRequiredService<DbInitialization>();
     await dbInitialization.Init(CancellationToken.None);
 }
-
-
-app.UseHttpsRedirection();
 
 app.UseCors("AllowReactApp");
 
