@@ -92,5 +92,12 @@ namespace API.Controllers
             return Ok(count);
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchBooks(string? titleTerm)
+        {
+            var books = await service.SearchBooks(titleTerm);
+            return Ok(books);
+        }
+
     }
 }

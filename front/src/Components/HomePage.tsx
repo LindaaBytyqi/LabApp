@@ -1,90 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import { BookModel } from "../Interfaces/BookModel";
-// import { BookService } from "../Services/BookService";
-// import { Container, Grid, Header, Button, Dropdown, Card, Image } from "semantic-ui-react";
-// import { useNavigate } from "react-router-dom";
 
-// export default function HomePage() {
-//   const [books, setBooks] = useState<BookModel[]>([]);
-//   const [genre, setGenre] = useState<string | null>(null);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchBooks = async () => {
-//       const response = await BookService.GetAllBooks();
-//       setBooks(response);
-//     };
-//     fetchBooks();
-//   }, []);
-
-//   const newReleases = books.slice(-3); // merr 3 librat e fundit
-//   const topSellers = books.filter(b => b.stockQty && b.stockQty > 5); // shembull logjike
-
-//   return (
-//     <Container style={{ marginTop: "30px" }}>
-//       {/* New Releases */}
-//       <Header as="h1" textAlign="center">
-//         New Releases This Week
-//       </Header>
-//       <p style={{ textAlign: "center" }}>
-//         It&apos;s time to update your reading list with some of the latest and greatest releases.
-//       </p>
-//       <div style={{ textAlign: "center", marginBottom: "20px" }}>
-//         <Button color="yellow">Subscribe</Button>
-//       </div>
-
-//       <Grid columns={3} stackable>
-//         {newReleases.map(book => (
-//           <Grid.Column key={book.id}>
-//             <Card onClick={() => navigate(`/book-details/${book.id}`)}>
-//               <Image src={`https://localhost:7141${book.photoUrl}`} wrapped ui={false} />
-//               <Card.Content>
-//                 <Card.Header>{book.title}</Card.Header>
-//                 <Card.Meta>{book.publishedDate}</Card.Meta>
-//                 <Card.Description>{book.description?.substring(0, 80)}...</Card.Description>
-//               </Card.Content>
-//               <Card.Content extra>
-//                 <strong>${book.price}</strong>
-//               </Card.Content>
-//             </Card>
-//           </Grid.Column>
-//         ))}
-//       </Grid>
-
-//       {/* Top Sellers */}
-//       <Header as="h2" style={{ marginTop: "40px" }}>
-//         Top Sellers
-//       </Header>
-//       <Dropdown
-//         placeholder="Choose a genre"
-//         selection
-//         options={[
-//           { key: "all", text: "All", value: "all" },
-//           { key: "fiction", text: "Fiction", value: "fiction" },
-//           { key: "non-fiction", text: "Non-Fiction", value: "non-fiction" },
-//         ]}
-//         onChange={(e, { value }) => setGenre(value as string)}
-//       />
-
-//       <Grid columns={4} stackable style={{ marginTop: "20px" }}>
-//         {topSellers.map(book => (
-//           <Grid.Column key={book.id}>
-//             <Card>
-//               <Image src={`https://localhost:7141${book.photoUrl}`} wrapped ui={false} />
-//               <Card.Content>
-//                 <Card.Header>{book.title}</Card.Header>
-//                 <Card.Description>{book.description?.substring(0, 60)}...</Card.Description>
-//               </Card.Content>
-//               <Card.Content extra>
-//                 <strong>${book.price}</strong>
-//               </Card.Content>
-//             </Card>
-//           </Grid.Column>
-//         ))}
-//       </Grid>
-//     </Container>
-//   );
-// }
 
 import React, { useEffect, useState } from "react";
 import { BookModel } from "../Interfaces/BookModel";
@@ -94,82 +8,91 @@ import { Container, Grid, Header, Button, Dropdown, Card, Image } from "semantic
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
+import { AuthorModel } from "../Interfaces/AuthorModel";
+import "./BookCard.css";
 
 export default function HomePage() {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [categories, setCategories] = useState<{ key: string; text: string; value: string }[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      const response = await BookService.GetAllBooks();
-      setBooks(response);
-    };
+  const fetchBooks = async () => {
+    const response = await BookService.GetAllBooks();
+    setBooks(response);
+  };
+  fetchBooks();
+}, []);
 
-//      useEffect(() => {
-//     const fetchBooks = async () => {
-//       const response = await BookService.GetAllBooks(); // backend endpoint për librat
-//       setBooks(response.filter(b => b.isActive)); // filter vetëm librat aktivë ose të aprovuar nga admini
-//     };
-//     fetchBooks();
-//   }, []);
+//     useEffect(() => {
+//   const fetchBooks = async () => {
+//     if (!searchTerm) return;
+//     const result = await BookService.SearchBooks(searchTerm);
+//     setBooks(result);
+//   };
 
-    const fetchCategories = async () => {
-      const response = await CategoryService.GetSelectList(); // merr nga API
-      const categoryOptions = response.map((c: any) => ({
-        key: c.id,
-        text: c.name,
-        value: c.id,
-      }));
-      setCategories([{ key: "all", text: "All", value: "all" }, ...categoryOptions]);
-    };
+//   const delay = setTimeout(() => fetchBooks(), 500);
+//   return () => clearTimeout(delay);
+// }, [searchTerm]);
 
-    fetchBooks();
-    fetchCategories();
-  }, []);
+   const filteredBooks = books
+  .filter((b) => selectedCategory && selectedCategory !== "all" ? b.categoryId === selectedCategory : true)
+  .filter((b) => (b.title?.toLowerCase() ?? "").includes(searchTerm.toLowerCase()));
 
-  const newReleases = books.slice(-3);
 
-  const filteredBooks =
-    selectedCategory && selectedCategory !== "all"
-      ? books.filter((b) => b.categoryId === selectedCategory)
-      : books;
+
+    useEffect(() => {
+  const fetchCategories = async () => {
+    const response = await CategoryService.GetSelectList();
+    const categoryOptions = response.map((c: any) => ({
+      key: c.id,
+      text: c.name,
+      value: c.id,
+    }));
+    setCategories([{ key: "all", text: "All", value: "all" }, ...categoryOptions]);
+  };
+  fetchCategories();
+}, []);
+
+
+
+  const newReleases = [...books]
+  .sort((a, b) => new Date(b.publishedDate || "").getTime() - new Date(a.publishedDate || "").getTime())
+  .slice(0, 3);
+
+  // const filteredBooks =
+  //   selectedCategory && selectedCategory !== "all"
+  //     ? books.filter((b) => b.categoryId === selectedCategory)
+  //     : books;
 
   return (
     <>
-    <Navbar/>
+    <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     <Container style={{ marginTop: "80px" }}>
       {/* New Releases */}
-      <Header as="h1" textAlign="center">
-        New Releases This Week
-      </Header>
-      <p style={{ textAlign: "center" }}>
-        It&apos;s time to update your reading list with some of the latest and greatest releases.
-      </p>
-      <div style={{ textAlign: "center", marginBottom: "20px" }}>
-        <Button color="yellow">Subscribe</Button>
-      </div>
+     {/* New Releases */}
+<Header as="h1" textAlign="center">
+  New Releases This Week
+</Header>
+<p style={{ textAlign: "center" }}>
+  It&apos;s time to update your reading list with some of the latest releases.
+</p>
 
-      <Grid columns={3} stackable>
-        {newReleases.map((book) => (
-          <Grid.Column key={book.id}>
-            <Card onClick={() => navigate(`/book-details/${book.id}`)}>
-              <Image src={`https://localhost:7141${book.photoUrl}`} wrapped ui={false} />
-              <Card.Content>
-                <Card.Header>{book.title}</Card.Header>
-                <Card.Meta>{book.publishedDate}</Card.Meta>
-                <Card.Description>{book.description?.substring(0, 80)}...</Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <strong>${book.price}</strong>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
-        ))}
-      </Grid>
+<div style={{ display: "flex", justifyContent: "center", gap: "20px", margin: "20px 0" }}>
+  {newReleases.map((book) => (
+    <div key={book.id} style={{ width: "200px", height: "300px", overflow: "hidden" }}>
+      <img
+        src={`https://localhost:7141${book.photoUrl}`}
+        alt={book.title || ""}
+        style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "8px" }}
+      />
+    </div>
+  ))}
+</div>
+
 
       {/* Books By Category */}
       <Header as="h2" style={{ marginTop: "40px" }}>
@@ -182,24 +105,49 @@ export default function HomePage() {
         onChange={(e, { value }) => setSelectedCategory(value as string)}
       />
 
-      <Grid columns={4} stackable style={{ marginTop: "20px" }}>
-        {filteredBooks.map((book) => (
-          <Grid.Column key={book.id}>
-            <Card>
-              <Image src={`https://localhost:7141${book.photoUrl}`} wrapped ui={false} />
-              <Card.Content>
-                <Card.Header>{book.title}</Card.Header>
-                <Card.Description>{book.description?.substring(0, 60)}...</Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <strong>${book.price}</strong>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
-        ))}
-      </Grid>
+
+<div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+<Grid columns={3} stackable style={{ marginTop: "20px" }}>
+ 
+  {filteredBooks.map((book) => (
+    <Grid.Column key={book.id}>
+      <div className="book-card">
+        {/* Foto */}
+        <div style={{ textAlign: "center" }}>
+          <img
+            src={`https://localhost:7141${book.photoUrl}`}
+            alt={book.title || ""}
+          />
+        </div>
+
+        {/* Titulli & Përshkrimi */}
+        <div>
+          <h3>{book.title}</h3>
+          <p>{book.description?.substring(0, 80)}...</p>
+        </div>
+
+        {/* Çmimi & Butoni */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "15px" }}>
+          <div>
+            <span className="book-price">${book.price}</span>
+            <span className="book-oldprice">${book.price}</span>
+          </div>
+          <button onClick={() => navigate(`/cart/${book.id}`)}>
+            🛒 Add to Cart
+          </button>
+        </div>
+      </div>
+    </Grid.Column>
+  ))}
+</Grid>
+</div>
+
+
+
+     
     </Container>
      <Footer/>
      </>
+  
   );
 }

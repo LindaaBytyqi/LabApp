@@ -149,4 +149,36 @@ public class BookService : IBookService
     {
         return await _context.Books.CountAsync(cancellationToken);
     }
+
+
+    public async Task<List<BookModel>> SearchBooks(string? titleTerm)
+    {
+        var query = _context.Books.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(titleTerm))
+        {
+            var lower = titleTerm.ToLower();
+            query = query.Where(b => b.Title.ToLower().Contains(lower));
+        }
+
+        // Rendit sipas datës së publikimit, librat më të fundit lart
+        query = query.OrderByDescending(b => b.PublishedDate);
+
+        return await query
+            .Select(b => new BookModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Description = b.Description,
+                Price = b.Price,
+                PhotoUrl = b.PhotoUrl,
+                PublishedDate = b.PublishedDate,
+                CategoryId = b.CategoryId,
+                PublisherId = b.PublisherId,
+                // authorIds mbetet opsional
+            })
+            .ToListAsync();
+    }
+
+
 }

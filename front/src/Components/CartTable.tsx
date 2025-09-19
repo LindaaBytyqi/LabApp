@@ -20,15 +20,32 @@ export default function CartTable() {
   const [deleteBookId, setDeleteBookId] = useState<string>("");
   const navigate = useNavigate();
 
-  const userId = "some-user-id"; // <-- vendos UserId aktual
+  //const userId = "some-user-id"; // <-- vendos UserId aktual
+  const userId = "test-user";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await CartService.GetCart(userId);
-      setCart(result);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await CartService.GetCart(userId);
+  //     setCart(result);
+  //   };
+  //   fetchData();
+  // }, []);
+
+//   useEffect(() => {
+//   const fetchCart = async () => {
+//     const result = await CartService.GetCart(userId);
+//     setCart(result);
+//   };
+//   fetchCart();
+// }, [userId]); 
+
+   useEffect(() => {
+  const fetchCart = async () => {
+    const result = await CartService.GetCart(userId);
+    setCart(result);
+  };
+  fetchCart();
+}, [userId]);
 
   function deleteItem(bookId: string) {
     setOpenConfirm(true);

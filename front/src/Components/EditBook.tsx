@@ -258,7 +258,7 @@ useEffect(() => {
             <label>Description</label>
             <input
               type="text"
-              placeholder="Enter role"
+              placeholder="Enter description"
               name="description"
               value={values.description ?? ""}
               onChange={handleChange}

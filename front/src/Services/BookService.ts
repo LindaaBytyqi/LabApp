@@ -37,6 +37,14 @@ export class BookService {
    public static async CountBooks():Promise<number>{ 
   const result = await axios.get(`${BookService.baseUrl}/countBooks`);
   return result.data;
+  }
+  public static async SearchBooks(titleTerm?: string): Promise<BookModel[]> {
+  const result = await axios.get(`${BookService.baseUrl}/search`, {
+    params: { titleTerm }
+  });
+  return result.data;
 }
+ 
+
 
 }

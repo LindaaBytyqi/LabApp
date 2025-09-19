@@ -1,5 +1,6 @@
 
 export interface BookModel{
+    //authorName: ReactNode;
     id:string|null;
     title:string|null;
     description:string|null;
@@ -14,4 +15,6 @@ export interface BookModel{
    // publisherName: string | null;
     authorIds?: string[];
     //authors?:AuthorModel[];
+     //authorName?: string | null;//per ni autor
+       authorNames?: string[];//per shume autor
 }

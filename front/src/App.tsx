@@ -19,12 +19,20 @@ import OrderTable from "./Components/OrderTable";
 import OrderDetails from "./Components/OrderDetails";
 import HomePage from "./Components/HomePage";
 import AdminDashboard from "./Components/AdminDashboard";
+import BookDetails from "./Components/BookDetails";
+import BookAddedConfirmation from "./Components/BookAddedConfirmation"; 
+
 function App() {
   return (
     <Routes>
       {/* Login pa sidebar */}
-      <Route path="/" element={<Login />} />
-        <Route path="/home" element={<HomePage/>}/>
+      <Route path="/login" element={<Login />} />
+         <Route path="/" element={<HomePage />} />
+      {/* <Route path="/book/:id" element={<BookDetails />} />
+      <Route path="/book-added/:id" element={<BookAddedConfirmation />} /> */}
+
+      <Route path="/book/:id" element={<BookDetails />} />
+      <Route path="/book-added/:id" element={<BookAddedConfirmation />} />
 
        <Route element={<LayoutWithSideBar />}>
         <Route path="/AdminDashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
@@ -48,13 +56,14 @@ function App() {
         <Route path="/AddPublisher" element={<AdminRoute><EditPublisher /></AdminRoute>} />
         <Route path="/EditPublisher/:id" element={<AdminRoute><EditPublisher /></AdminRoute>} />
 
-        <Route path="/Cart" element={<AdminRoute><CartTable /></AdminRoute>} />
+        {/* <Route path="/Cart" element={<AdminRoute><CartTable /></AdminRoute>} /> */}
+        <Route path="/Cart" element={<CartTable />} />
         <Route path="/AddCart" element={<AdminRoute><EditCartItem /></AdminRoute>} />
         <Route path="/EditCart/:id" element={<AdminRoute><EditCartItem /></AdminRoute>} />
 
         <Route path="/checkout" element={<AdminRoute><OrderTable /></AdminRoute>} />
         <Route path="/order/:id" element={<AdminRoute><OrderDetails /></AdminRoute>} />
-        
+       
       </Route>
     </Routes>
   );
