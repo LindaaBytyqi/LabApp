@@ -17,7 +17,7 @@ export default function Footer() {
           📚 Bookstore
         </h3>
         <p style={{ margin: "5px 0" }}>📍 Prishtina, Kosovo</p>
-        <p style={{ margin: "5px 0" }}>📞 +383 44 123 456</p>
+        <p style={{ margin: "5px 0" }}>📞 +383 49 123 456</p>
 
         {/* Thenia inspiruese */}
         <p style={{ margin: "15px 0", fontStyle: "italic", color: "#666" }}>
@@ -26,7 +26,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <p style={{ margin: "5px 0", color: "#555", fontSize: "14px" }}>
-          © {new Date().getFullYear()} Bookstore. All rights reserved.
+          © {new Date().getFullYear()} ABCBookstore. All rights reserved.
         </p>
       </Container>
     </div>

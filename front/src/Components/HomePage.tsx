@@ -83,7 +83,7 @@ export default function HomePage() {
 
 <div style={{ display: "flex", justifyContent: "center", gap: "20px", margin: "20px 0" }}>
   {newReleases.map((book) => (
-    <div key={book.id} style={{ width: "200px", height: "300px", overflow: "hidden" }}>
+    <div key={book.id} style={{ width: "160px", height: "260px", overflow: "hidden" }}>
       <img
         src={`https://localhost:7141${book.photoUrl}`}
         alt={book.title || ""}
@@ -130,7 +130,7 @@ export default function HomePage() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "15px" }}>
           <div>
             <span className="book-price">${book.price}</span>
-            <span className="book-oldprice">${book.price}</span>
+            {/* <span className="book-oldprice">${book.price}</span> */}
           </div>
           <button onClick={() => navigate(`/cart/${book.id}`)}>
             🛒 Add to Cart

@@ -43,8 +43,7 @@ export class BookService {
     params: { titleTerm }
   });
   return result.data;
-}
- 
-
+  }
+  
 
 }

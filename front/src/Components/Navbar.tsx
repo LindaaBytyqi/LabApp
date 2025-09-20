@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Input, Icon, Menu, Dropdown } from "semantic-ui-react";
 import { BookService } from "../Services/BookService";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   searchTerm: string;
@@ -42,7 +43,27 @@ export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
     >
       {/* 3 vijat */}
       <Menu.Item>
-        <Icon name="bars" size="large" />
+        {/* <Icon name="bars" size="large" />
+      </Menu.Item>
+      <Menu.Item as={Link} to="/aboutus">
+        About Us */}
+         <Dropdown
+          trigger={<Icon name="bars" size="large" />}
+          pointing="top left"
+          icon={null}
+        >
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to="/aboutus">
+              <Icon name="info circle" /> About Us
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/">
+              <Icon name="home" /> Home
+            </Dropdown.Item>
+            <Dropdown.Item as={Link} to="/contact">
+              <Icon name="phone" /> Contact
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu.Item>
 
       {/* Search */}
@@ -51,7 +72,7 @@ export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
           placeholder="Search by book title..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ marginBottom: "10px", width:"270px"}}
+          style={{ marginBottom: "8px", width:"270px"}}
         />
       </Menu.Item>
 

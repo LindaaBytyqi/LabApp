@@ -21,6 +21,8 @@ import HomePage from "./Components/HomePage";
 import AdminDashboard from "./Components/AdminDashboard";
 import BookDetails from "./Components/BookDetails";
 import BookAddedConfirmation from "./Components/BookAddedConfirmation"; 
+import AboutUs from "./Components/AboutUs";
+import ContactUs from "./Components/ContactUs";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
       {/* Login pa sidebar */}
       <Route path="/login" element={<Login />} />
          <Route path="/" element={<HomePage />} />
+         <Route path="/aboutus" element={<AboutUs />} />
+         <Route path="/contact" element={<ContactUs />} />
       {/* <Route path="/book/:id" element={<BookDetails />} />
       <Route path="/book-added/:id" element={<BookAddedConfirmation />} /> */}
 
