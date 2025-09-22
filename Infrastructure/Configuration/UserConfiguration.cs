@@ -56,9 +56,9 @@ namespace Infrastructure.Configuration
                    .IsRequired()
                    .HasMaxLength(50);
 
-            builder.Property(u => u.PersonalEmail)
-                   .IsRequired()
-                   .HasMaxLength(100);
+            //builder.Property(u => u.Email)
+            //       .IsRequired()
+            //       .HasMaxLength(100);
 
             builder.Property(u => u.Address)
                    .HasMaxLength(200);
@@ -74,7 +74,7 @@ namespace Infrastructure.Configuration
 
             // Optional: Index/Unik për UserName dhe PersonalEmail
             builder.HasIndex(u => u.UserName).IsUnique();
-            builder.HasIndex(u => u.PersonalEmail).IsUnique();
+            builder.HasIndex(u => u.Email).IsUnique();
         }
     }
 }

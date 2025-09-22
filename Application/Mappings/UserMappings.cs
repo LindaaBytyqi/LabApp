@@ -17,7 +17,7 @@ namespace Application.Mappings
                  .ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
                  .ForMember(x => x.UserName, y => y.MapFrom(x => x.UserName))
                  .ForMember(x => x.LastName, y => y.MapFrom(x => x.LastName))
-                 .ForMember(x => x.PersonalEmail, y => y.MapFrom(x => x.PersonalEmail))
+                 .ForMember(x => x.Email, y => y.MapFrom(x => x.Email))
                  .ForMember(x => x.Address, y => y.MapFrom(x => x.Address));
 
 
@@ -25,7 +25,7 @@ namespace Application.Mappings
                 .ForMember(x => x.Id, y => y.MapFrom(x => x.Id))
                 .ForMember(x => x.UserName, y => y.MapFrom(x => x.UserName))
                 .ForMember(x => x.LastName, y => y.MapFrom(x => x.LastName))
-                .ForMember(x => x.PersonalEmail, y => y.MapFrom(x => x.PersonalEmail))
+                .ForMember(x => x.Email, y => y.MapFrom(x => x.Email))
               .ForMember(x => x.Address, y => y.MapFrom(x => x.Address));
 
         }

@@ -23,7 +23,6 @@ export class UserService {
     UserService.LoggedInUser = response.data?.userData;
     localStorage.setItem("role", response.data.userRole);
     UserService.role = response.data?.userRole;
-    localStorage.setItem("notifications", JSON.stringify(response.data.notifications));
     toast.success("Logged in successfuly");
     const userId = response.data.userData.id;
    
@@ -88,4 +87,21 @@ export class UserService {
    public static isAdmin(): boolean{
      return UserService.GetUserRole() ==='Admin';
   }
+  public static getUserId(): string {
+  // Nëse user është loguar, përdor ID e tij
+  if (UserService.LoggedInUser?.id) {
+    return UserService.LoggedInUser.id;
+  }
+
+  // Për guest, shiko në localStorage
+  let guestId = localStorage.getItem("guestUserId");
+  if (!guestId) {
+    guestId = crypto.randomUUID(); // krijon Guid
+    localStorage.setItem("guestUserId", guestId);
+  }
+  return guestId;
+}
+
+
+
 }

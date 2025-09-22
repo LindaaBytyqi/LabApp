@@ -33,6 +33,9 @@ namespace API.Controllers
             return Ok(model);
         }
 
+        // Example using Entity Framework Core
+      
+
         //[HttpPost]
         ////[Consumes("application/json")]
         //public async Task<IActionResult> CreateOrUpdate([FromForm] BookModel model, CancellationToken cancellationToken)

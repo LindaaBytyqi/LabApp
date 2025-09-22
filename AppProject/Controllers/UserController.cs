@@ -24,7 +24,7 @@ namespace API.Controllers
             var result = await service.LoginAsync(loginModel, cancellationToken);
             return Ok(result);
         }
-        [Authorize(Roles = "Admin,Coordinator")]
+        //[Authorize(Roles = "Admin,Coordinator")]
 
         [HttpPost]
         public async Task<IActionResult> AddOrEditUserAsync([FromBody] UserModel model, CancellationToken cancellationToken)

@@ -94,6 +94,117 @@ public class BookService : IBookService
 
         return _mapper.Map<BookModel>(book);
     }
+    //public async Task<BookModel> GetById(Guid id, CancellationToken cancellationToken)
+    //{
+    //    var book = await _context.Books
+    //        .Include(b => b.Category)
+    //        .Include(b => b.BookAuthors)
+    //            .ThenInclude(ba => ba.Author)
+    //        .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+
+    //    if (book == null)
+    //        return null;
+
+    //    var bookDto = new BookModel
+    //    {
+    //        Id = book.Id,
+    //        Title = book.Title,
+    //        Description = book.Description,
+    //        ISBN = book.ISBN,
+    //        Price = book.Price,
+    //        StockQty = book.StockQty,
+    //        PublishedDate = book.PublishedDate,
+    //        PhotoUrl = book.PhotoUrl,
+    //        CategoryId = book.CategoryId,
+    //        PublisherId = book.PublisherId,
+
+    //        // Map Category për frontend
+    //        Category = book.Category == null ? null : new Category
+    //        {
+    //            Id = book.Category.Id,
+    //            Name = book.Category.Name
+    //        },
+
+    //        // Map Authors për frontend
+    //        Authors = book.BookAuthors
+    //                    .Select(ba => new AuthorModel
+    //                    {
+    //                        Id = ba.Author.Id,
+    //                        Name = ba.Author.Name,
+    //                        Bio = ba.Author.Bio,
+    //                        DateOfBirth = ba.Author.DateOfBirth,
+    //                        Country = ba.Author.Country
+    //                    }).ToList(),
+
+    //        // AuthorIds për dropdown selection në frontend
+    //        AuthorIds = book.BookAuthors.Select(ba => ba.Author.Id).ToList()
+    //    };
+
+    //    return bookDto;
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //public async Task<BookModel> GetById(Guid id, CancellationToken cancellationToken)
+    //{
+    //    var book = await _context.Books
+    //        .Include(b => b.Category)
+    //        .Include(b => b.BookAuthors)
+    //            .ThenInclude(ba => ba.Author)
+    //        .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+
+    //    if (book == null)
+    //        return null;
+
+    //    var bookDto = new BookModel
+    //    {
+    //        Id = book.Id,
+    //        Title = book.Title,
+    //        Description = book.Description,
+    //        ISBN = book.ISBN,
+    //        Price = book.Price,
+    //        StockQty = book.StockQty,
+    //        PublishedDate = book.PublishedDate,
+    //        PhotoUrl = book.PhotoUrl,
+    //        CategoryId = book.CategoryId,
+    //        PublisherId = book.PublisherId,
+
+    //        // Map Category
+    //        Category = new Category
+    //        {
+    //            Id = book.Category.Id,
+    //            Name = book.Category.Name
+    //        },
+
+    //        // Map Authors
+    //        Authors = book.BookAuthors
+    //                      .Select(ba => new AuthorModel
+    //                      {
+    //                          Id = ba.Author.Id,
+    //                          Name = ba.Author.Name
+    //                      })
+    //                      .ToList(),
+
+    //        // Map AuthorIds për frontend
+    //        AuthorIds = book.BookAuthors.Select(ba => ba.Author.Id).ToList()
+    //    };
+
+    //    return bookDto;
+    //}
+
+
+
+
 
     public async Task<List<BookModel>> GetAll(CancellationToken cancellationToken)
     {

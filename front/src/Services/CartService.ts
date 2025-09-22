@@ -11,7 +11,7 @@ export class CartService {
     return result.data;
   }
 
-  // Shton ose edito një item në cart
+  // Shton ose edito një item në cart ->>>>>  id: string | null, quantity: number,
   public static async AddToCart(userId: string, model: CartItemModel): Promise<void> {
     await axios.post(`${CartService.baseUrl}/${userId}`, model);
   }

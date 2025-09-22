@@ -1,4 +1,5 @@
-
+import { AuthorModel } from "./AuthorModel";
+import { CategoryModel } from "./CategoryModel";
 export interface BookModel{
     //authorName: ReactNode;
     id:string|null;
@@ -17,4 +18,7 @@ export interface BookModel{
     //authors?:AuthorModel[];
      //authorName?: string | null;//per ni autor
        authorNames?: string[];//per shume autor
+
+         author?: AuthorModel[];
+    category?: CategoryModel;
 }

@@ -33,6 +33,8 @@ namespace Domain.Model
         public List<Guid> AuthorIds { get; set; } = new List<Guid>();
 
         public List<AuthorModel> Authors { get; set; } = new();
+        //public Category Category { get; set; }
+      
         //public List<string> AuthorIds { get; set; } = new List<string>();
         //public List<AuthorModel> Authors { get; set; } = new List<AuthorModel>();
     }

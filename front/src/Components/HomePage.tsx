@@ -132,7 +132,7 @@ export default function HomePage() {
             <span className="book-price">${book.price}</span>
             {/* <span className="book-oldprice">${book.price}</span> */}
           </div>
-          <button onClick={() => navigate(`/cart/${book.id}`)}>
+          <button onClick={() => navigate(`/book/${book.id}`)}>
             🛒 Add to Cart
           </button>
         </div>

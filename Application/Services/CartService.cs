@@ -39,8 +39,53 @@ namespace Application.Services
             return _mapper.Map<CartModel>(cart);
         }
 
+        //public async Task AddToCart(Guid userId, CartItemModel model)
+        //{
+        //    var cart = await _context.Carts
+        //        .Include(c => c.CartItems)
+        //        .FirstOrDefaultAsync(c => c.UserId == userId);
+
+        //    if (cart == null)
+        //    {
+        //        cart = new Cart { Id = Guid.NewGuid(), UserId = userId };
+        //        _context.Carts.Add(cart);
+        //    }
+
+        //    var existing = cart.CartItems.FirstOrDefault(i => i.BookId == model.BookId);
+        //    if (existing != null)
+        //    {
+        //        existing.Quantity += model.Quantity;
+        //    }
+        //    else
+        //    {
+        //        // ✅ Mapim direkt nga CartItemModel → CartItem
+        //        var cartItem = _mapper.Map<CartItem>(model);
+        //        cartItem.Id = Guid.NewGuid();
+        //        cart.CartItems.Add(cartItem);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //}
+
         public async Task AddToCart(Guid userId, CartItemModel model)
         {
+            // Kontrollo nëse ekziston user-i (edhe pse është guest)
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                user = new User
+                {
+                    Id = userId,
+                    UserName = $"guest-{userId.ToString().Substring(0, 8)}",
+                    Email = $"guest-{userId}@guest.com",
+                    IsGuest = true // duhet të kesh këtë property te entiteti User
+                };
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+            }
+
+            // Kontrollo nëse ekziston cart për këtë user
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
@@ -51,6 +96,7 @@ namespace Application.Services
                 _context.Carts.Add(cart);
             }
 
+            // Kontrollo nëse libri ekziston në cart
             var existing = cart.CartItems.FirstOrDefault(i => i.BookId == model.BookId);
             if (existing != null)
             {
@@ -58,7 +104,7 @@ namespace Application.Services
             }
             else
             {
-                // ✅ Mapim direkt nga CartItemModel → CartItem
+                // Mapim nga CartItemModel → CartItem
                 var cartItem = _mapper.Map<CartItem>(model);
                 cartItem.Id = Guid.NewGuid();
                 cart.CartItems.Add(cartItem);
@@ -66,6 +112,7 @@ namespace Application.Services
 
             await _context.SaveChangesAsync();
         }
+
 
         public async Task RemoveFromCart(Guid userId, Guid bookId)
         {
@@ -96,6 +143,27 @@ namespace Application.Services
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
