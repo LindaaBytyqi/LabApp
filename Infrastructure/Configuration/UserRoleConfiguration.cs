@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Configuration
 {
@@ -13,32 +8,18 @@ namespace Infrastructure.Configuration
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
+            // Çelësi primar kompozit
             //builder.HasKey(x => new { x.UserId, x.RoleId });
-            ////builder.HasKey(x => x.Id);
-            //builder.HasOne(ur => ur.User)
-            //       .WithMany(u => u.UserRoles)
-            //       .HasForeignKey(ur => ur.UserId)
-            //         .OnDelete(DeleteBehavior.Restrict);
 
-
-            //builder.HasOne(ur => ur.Role)
-            //    .WithMany(r => r.UserRoles)
-            //    .HasForeignKey(ur => ur.RoleId)
-            //     .OnDelete(DeleteBehavior.Restrict);
-
-
-            //builder.HasKey(ur => new { ur.UserId, ur.RoleId }); // <- ky është primary key
-
-            builder.HasOne(ur => ur.User)
+            // Marrëdhënia me User
+            builder.HasOne(x => x.User)
                    .WithMany(u => u.UserRoles)
-                   .HasForeignKey(ur => ur.UserId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .HasForeignKey(x => x.UserId);
 
-            builder.HasOne(ur => ur.Role)
+            // Marrëdhënia me Role
+            builder.HasOne(x => x.Role)
                    .WithMany(r => r.UserRoles)
-                   .HasForeignKey(ur => ur.RoleId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
+                   .HasForeignKey(x => x.RoleId);
         }
     }
 }

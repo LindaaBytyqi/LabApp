@@ -10,10 +10,10 @@ export interface BookModel{
     stockQty: number | null;
     publishedDate: string | null; // ose Date nëse do me e përdor si objekt Date
     photoUrl?: string | null;
-   // categoryName: string | null;
+    categoryName: string | null;
     categoryId: string | null;
     publisherId: string | null;
-   // publisherName: string | null;
+    publisherName: string | null;
     authorIds?: string[];
     //authors?:AuthorModel[];
      //authorName?: string | null;//per ni autor

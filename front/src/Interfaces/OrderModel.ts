@@ -1,7 +1,7 @@
-import { OrderItem } from "./OrderItem";
+import { OrderItemModel } from "./OrderItemModel";
 
-export interface Order {
-  id: string|null;      // Guid → string
+export interface OrderModel {
+  orderId: string|null;      // Guid → string
   fullName: string|null;
   email: string|null;
   phone: string|null;
@@ -10,5 +10,5 @@ export interface Order {
   zipCode: string|null;
   totalPrice: number|null;   // decimal → number
   createdAt: string|null;    // DateTime → string (ose Date nqs e pars-on)
-  orderItems: OrderItem[];
+  orderItems: OrderItemModel[];
 }

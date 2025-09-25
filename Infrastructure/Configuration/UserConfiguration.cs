@@ -67,10 +67,10 @@ namespace Infrastructure.Configuration
                    .HasMaxLength(200);
 
             // Relacioni me UserRoles
-            builder.HasMany(u => u.UserRoles)
-                   .WithOne(ur => ur.User)
-                   .HasForeignKey(ur => ur.UserId)
-                   .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasMany(u => u.UserRoles)
+            //       .WithOne(ur => ur.User)
+            //       .HasForeignKey(ur => ur.UserId)
+            //       .OnDelete(DeleteBehavior.Restrict);
 
             // Optional: Index/Unik për UserName dhe PersonalEmail
             builder.HasIndex(u => u.UserName).IsUnique();

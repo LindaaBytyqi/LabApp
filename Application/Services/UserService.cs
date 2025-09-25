@@ -76,6 +76,7 @@ namespace Application.Services
             var userData = mapper.Map<UserModel>(user);
             if (userRoles.Contains("Admin")) userData.Role = Domain.Enum.UserRoleEnum.Admin;
             else if (userRoles.Contains("Coordinator")) userData.Role = Domain.Enum.UserRoleEnum.Coordinator;
+            else if (userRoles.Contains("User")) userData.Role = Domain.Enum.UserRoleEnum.User;
 
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
@@ -277,23 +278,6 @@ namespace Application.Services
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public async Task<UserModel> GetUserById(Guid userId, CancellationToken cancellationToken)
         {
             var user = await appDbContext.Users
@@ -316,6 +300,11 @@ namespace Application.Services
             {
                 model.Role = Domain.Enum.UserRoleEnum.Coordinator;
             }
+            else if (roles.Any(x => x == "User"))
+            {
+                model.Role = Domain.Enum.UserRoleEnum.User;
+            }
+
 
             return model;
         }
@@ -336,6 +325,8 @@ namespace Application.Services
                     model.Role = Domain.Enum.UserRoleEnum.Admin;
                 else if (roles.Contains("Coordinator"))
                     model.Role = Domain.Enum.UserRoleEnum.Coordinator;
+                else if (roles.Contains("User"))
+                    model.Role = Domain.Enum.UserRoleEnum.User;
 
                 userModels.Add(model);
             }

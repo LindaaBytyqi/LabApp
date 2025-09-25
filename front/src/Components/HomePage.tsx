@@ -27,17 +27,6 @@ export default function HomePage() {
   fetchBooks();
 }, []);
 
-//     useEffect(() => {
-//   const fetchBooks = async () => {
-//     if (!searchTerm) return;
-//     const result = await BookService.SearchBooks(searchTerm);
-//     setBooks(result);
-//   };
-
-//   const delay = setTimeout(() => fetchBooks(), 500);
-//   return () => clearTimeout(delay);
-// }, [searchTerm]);
-
    const filteredBooks = books
   .filter((b) => selectedCategory && selectedCategory !== "all" ? b.categoryId === selectedCategory : true)
   .filter((b) => (b.title?.toLowerCase() ?? "").includes(searchTerm.toLowerCase()));
@@ -139,12 +128,9 @@ export default function HomePage() {
       </div>
     </Grid.Column>
   ))}
-</Grid>
-</div>
+    </Grid>
+  </div>
 
-
-
-     
     </Container>
      <Footer/>
      </>

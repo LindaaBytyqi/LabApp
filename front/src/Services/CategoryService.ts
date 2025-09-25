@@ -1,5 +1,6 @@
 //import AxiosInstance from "./AxiosInstance";
 import { CategoryModel } from "../Interfaces/CategoryModel";
+import { CategoryBookCountModel } from "../Interfaces/CategoryBookCountModel";
 import axios from "axios";
 export class CategoryService {
     private static baseUrl = "https://localhost:7141/api/Category";
@@ -22,9 +23,9 @@ export class CategoryService {
     const result = await axios.get(`${CategoryService.baseUrl}/GetCategorySelectListAsync`);
     return result.data;
   }
-  public static async GetBooksByCategory(): Promise<{ name: string; value: number }[]> {
-    const result = await axios.get(`${CategoryService.baseUrl}/GetBooksByCategory`);
-    return result.data;
-  }
+  public static async GetBooksByCategory(): Promise<CategoryBookCountModel[]> {
+  const result = await axios.get(`${CategoryService.baseUrl}/GetBooksByCategory`);
+  return result.data;
+}
 
 }

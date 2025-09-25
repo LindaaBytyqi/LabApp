@@ -28,7 +28,6 @@ export class UserService {
    
 
   // Optionally mark them as read in the backend
-  await axios.put(`https://localhost:7085/api/Notifications/markAllRead/${userId}`);
     return response.data;
   }
   public static LogOut(): void {
@@ -41,9 +40,8 @@ export class UserService {
     localStorage.removeItem("userModel");
     localStorage.removeItem("role");
     localStorage.removeItem("userRole");
-    localStorage.removeItem("studentId");
     localStorage.removeItem("id");
-    localStorage.removeItem("departmentId");
+   
 
     UserService.token = null;
     UserService.role = null;

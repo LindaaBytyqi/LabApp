@@ -8,7 +8,7 @@
 import { BookModel } from "./BookModel";
 
 export interface CartItemModel {
-  // photoUrl:string;
+  photoUrl:string;
   bookId: string;
   quantity: number;
   title: string;

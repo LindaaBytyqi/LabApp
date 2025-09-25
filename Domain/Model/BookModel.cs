@@ -25,17 +25,14 @@ namespace Domain.Model
 
         // 🔗 Lidhja me Category
         public Guid CategoryId { get; set; }  // Foreign Key
-        //public Category Category { get; set; }
-       // public string CategoryName { get; set; }
-        public Guid PublisherId { get; set; }
-       // public string PublisherName { get; set; }
-        //public List<AuthorModel> Authors { get; set; }
-        public List<Guid> AuthorIds { get; set; } = new List<Guid>();
 
+        public List<Guid> AuthorIds { get; set; } = new List<Guid>();
         public List<AuthorModel> Authors { get; set; } = new();
-        //public Category Category { get; set; }
-      
-        //public List<string> AuthorIds { get; set; } = new List<string>();
-        //public List<AuthorModel> Authors { get; set; } = new List<AuthorModel>();
+
+        public string? CategoryName { get; set; }
+        public Guid PublisherId { get; set; }
+        public string? PublisherName { get; set; }
+        public List<string> AuthorNames { get; set; } = new();
+
     }
 }

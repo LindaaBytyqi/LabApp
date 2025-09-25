@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,10 @@ namespace Domain.Entities
        // public ICollection<BookAuthor> BookAuthors { get; set; }
         public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
 
-       // public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
+        [NotMapped]
+        public List<string> AuthorNames { get; set; } = new();
+
+        // public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
     }
 
 }

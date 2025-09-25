@@ -89,5 +89,17 @@ namespace Application.Services
 
             return model;
         }
+        public async Task<List<CategoryBookCountModel>> GetBooksByCategory(CancellationToken cancellationToken)
+        {
+            var result = await appDbContext.Categories
+                .Select(c => new CategoryBookCountModel
+                {
+                    CategoryName = c.Name,
+                    Value = c.Books.Count()   // supozojmë që Category ka navigation property -> Books
+                })
+                .ToListAsync(cancellationToken);
+
+            return result;
+        }
     }
 }

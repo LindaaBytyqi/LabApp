@@ -13,10 +13,8 @@ import AuthorTable from "./Components/AuthorTable";
 import EditAuthor from "./Components/EditAuthor";
 import PublisherTable from "./Components/PublisherTable";
 import EditPublisher from "./Components/EditPublisher";
-import CartTable from "./Components/CartTable";
 import EditCartItem from "./Components/EditCart";
 import OrderTable from "./Components/OrderTable";
-import OrderDetails from "./Components/OrderDetails";
 import HomePage from "./Components/HomePage";
 import AdminDashboard from "./Components/AdminDashboard";
 import AboutUs from "./Components/AboutUs";
@@ -24,25 +22,28 @@ import ContactUs from "./Components/ContactUs";
 import QuantityControl from "./Components/QuantityControl";
 import BookDetailsPage from "./Components/BookDetailsPage";
 import CartPage from "./Components/CartPage";
+import Register from "./Components/Register";
+import OrderSuccess from "./Components/OrderSuccess";
+import CoordinatorDashboard from "./Components/CoordinatorDashboard";
+import OrderEdit from "./Components/OrderEdit";
 
 function App() {
   return (
     <Routes>
       {/* Login pa sidebar */}
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/quantity" element={<QuantityControl />} />
         <Route path="/book/:id" element={<BookDetailsPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<OrderTable />} />
+        <Route path="/order-success/:id" element={<OrderSuccess />} />
 
        <Route element={<LayoutWithSideBar />}>
        <Route path="/AdminDashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-       </Route>
-      
-      {/* CRUD dhe rrugë tjera pa sidebar */}
-      <Route element={<EmptyLayout />}>
         <Route path="/Category" element={<AdminRoute><CategoryTable /></AdminRoute>} />
         <Route path="/AddCategory" element={<AdminRoute><EditCategory /></AdminRoute>} />
         <Route path="/EditCategory/:id" element={<AdminRoute><EditCategory /></AdminRoute>} />
@@ -58,14 +59,35 @@ function App() {
         <Route path="/Publisher" element={<AdminRoute><PublisherTable /></AdminRoute>} />
         <Route path="/AddPublisher" element={<AdminRoute><EditPublisher /></AdminRoute>} />
         <Route path="/EditPublisher/:id" element={<AdminRoute><EditPublisher /></AdminRoute>} />
+         <Route path="/CoordinatorDashboard" element={<AdminRoute><CoordinatorDashboard /></AdminRoute>} />
+         <Route path="/orderedit" element={<AdminRoute><OrderEdit /></AdminRoute>} />
+       </Route>
+      
+      {/* CRUD dhe rrugë tjera pa sidebar */}
+      <Route element={<EmptyLayout />}>
+        {/* <Route path="/Category" element={<AdminRoute><CategoryTable /></AdminRoute>} />
+        <Route path="/AddCategory" element={<AdminRoute><EditCategory /></AdminRoute>} />
+        <Route path="/EditCategory/:id" element={<AdminRoute><EditCategory /></AdminRoute>} />
+
+        <Route path="/Book" element={<AdminRoute><BookTable /></AdminRoute>} />
+        <Route path="/AddBook" element={<AdminRoute><EditBook /></AdminRoute>} />
+        <Route path="/EditBook/:id" element={<AdminRoute><EditBook /></AdminRoute>} />
+
+        <Route path="/Author" element={<AdminRoute><AuthorTable /></AdminRoute>} />
+        <Route path="/AddAuthor" element={<AdminRoute><EditAuthor /></AdminRoute>} />
+        <Route path="/EditAuthor/:id" element={<AdminRoute><EditAuthor /></AdminRoute>} />
+
+        <Route path="/Publisher" element={<AdminRoute><PublisherTable /></AdminRoute>} />
+        <Route path="/AddPublisher" element={<AdminRoute><EditPublisher /></AdminRoute>} />
+        <Route path="/EditPublisher/:id" element={<AdminRoute><EditPublisher /></AdminRoute>} /> */}
 
         
         {/* <Route path="/Cart" element={<CartTable />} /> */}
         {/* <Route path="/AddCart" element={<AdminRoute><EditCartItem /></AdminRoute>} />
         <Route path="/EditCart/:id" element={<AdminRoute><EditCartItem /></AdminRoute>} /> */}
  
-        <Route path="/checkout" element={<AdminRoute><OrderTable /></AdminRoute>} /> 
-        <Route path="/order/:id" element={<AdminRoute><OrderDetails /></AdminRoute>} />
+        {/* <Route path="/checkout" element={<AdminRoute><OrderTable /></AdminRoute>} />  */}
+      
        
       </Route>
     </Routes>

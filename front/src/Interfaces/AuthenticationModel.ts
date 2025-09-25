@@ -5,6 +5,5 @@ import { UserModel } from "./UserModel";
      refreshToken: string,
      expiresAt: Date,
      userData:UserModel,
-     userRole: string,
-     notifications: Notification[];
+     userRole: string
  }

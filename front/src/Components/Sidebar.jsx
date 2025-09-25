@@ -2,10 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { MdDashboard, MdCategory } from "react-icons/md";
+import Login from "./Login";
 import { 
   FaBook,        
   FaUserEdit,    
   FaBuilding,    
+  FaShoppingCart
   // FaSignOutAlt,  
 } from "react-icons/fa";
 import { UserService } from "../Services/UserService";
@@ -16,7 +18,7 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     UserService.LogOut(); 
-    navigate("/"); 
+    navigate("/login");  
   };
   const activeStyle = {
     fontWeight: "bold",
@@ -46,11 +48,14 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
 
   const sidebarLinks = [
     { name: "Dashboard Admin", path: "/AdminDashboard", icon: <MdDashboard /> },
+    { name: "Dashboard Coordinator", path: "/Coordiantor Dashboard", icon: <MdDashboard /> },
     { name: "Authors", path: "/Author", icon: <FaUserEdit /> },
     { name: "Publisher", path: "/Publisher", icon: <FaBuilding /> },
     { name: "Category", path: "/Category", icon: <MdCategory /> },
     { name: "Books", path: "/Book", icon: <FaBook /> },
     { name: "Logout", path: "/", icon: <FaSignOutAlt /> },
+    //{name:"Orders",path:"/order-success/:id",icon:<FaShoppingCart/>},
+     {name:"Orders",path:"/OrderEdit",icon:<FaShoppingCart/>},
   ];
   let filteredLinks = [];
 
@@ -62,18 +67,25 @@ if (isAdmin) {
     "/Category",
     "/Author",
     "/Publisher",
-    "/"
+    // "/login",
+     "/"
   ].includes(link.path)
   );
 } else if (isCoordinator) {
   filteredLinks = sidebarLinks.filter(link =>
     [
-      "/checkout",
-      "/Cart"
+      // "/checkout",
+      "/CoordinatorDashboard",
+      // "/order-success/:id",
+      "/OrderEdit",
+       "/"
+      
     ].includes(link.path)
   );
 } 
 
+//  <Route path="/checkout" element={<OrderTable />} />
+//         <Route path="/order-success/:id" element={<OrderSuccess />} />
 
   return (
     <nav

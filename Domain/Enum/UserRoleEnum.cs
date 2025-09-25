@@ -10,6 +10,7 @@ namespace Domain.Enum
     {
         Admin,
         Coordinator,
+        User,
 
     }
 }

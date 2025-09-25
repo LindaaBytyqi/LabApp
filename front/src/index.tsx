@@ -65,11 +65,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
       <BrowserRouter> {/* ✅ Vendos Router këtu */}
         <App />
       </BrowserRouter>
-    </Provider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 

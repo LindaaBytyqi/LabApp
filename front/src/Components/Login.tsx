@@ -25,8 +25,10 @@ export default function Login() {
       const user: LoginModel = {
         email: formData.email,
         password: formData.password,
+        // role:"User",
       };
       const response = await UserService.Login(user);
+      console.log(response)
 
       localStorage.setItem("userRole", response.userRole);
       localStorage.setItem("id", response.userData.id!);
@@ -35,7 +37,7 @@ export default function Login() {
        if (response.userRole === "Coordinator") {
         navigate("/CoordinatorDashboard");
       }else{
-        navigate("/aa");
+        navigate("/AdminDashboard");
       }
     } catch (error) {
       alert("Login failed. Please check your credentials.");

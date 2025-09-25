@@ -1,17 +1,15 @@
-
 import React, { useState } from "react";
 import { Input, Icon, Menu, Dropdown } from "semantic-ui-react";
-import { BookService } from "../Services/BookService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
 }
 
-
 export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
-  const [cartCount] = useState(3);
+  const [cartCount] = useState(3); // mund ta bësh dynamic në varësi të cart
+  const navigate=useNavigate();
 
   const trigger = (
     <span>
@@ -19,12 +17,12 @@ export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
     </span>
   );
 
-  const options = [
-    { key: "dashboard", text: "Dashboard" },
-    { key: "orders", text: "Orders" },
-    { key: "cart", text: "Cart Page" },
-    { key: "checkout", text: "Checkout" },
-    { key: "logout", text: "Logout" },
+  const userOptions = [
+    { key: "home", text: "Home", to: "/" },
+    { key: "cart", text: "Cart Page", to: "/cart" },
+    { key: "checkout", text: "Checkout", to: "/checkout" },
+     { key: "register", text: "Register", to: "/register" },
+    { key: "logout", text: "Logout", to: "/logout" },
   ];
 
   return (
@@ -33,25 +31,17 @@ export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
       style={{
         padding: "10px 20px",
         alignItems: "center",
-        position: "fixed", // lart
+        position: "fixed",
         top: 0,
-        left:0,
-        right:0,
+        left: 0,
+        right: 0,
         zIndex: 1000,
         background: "white",
       }}
     >
-      {/* 3 vijat */}
+      {/* Hamburger / 3 lines menu */}
       <Menu.Item>
-        {/* <Icon name="bars" size="large" />
-      </Menu.Item>
-      <Menu.Item as={Link} to="/aboutus">
-        About Us */}
-         <Dropdown
-          trigger={<Icon name="bars" size="large" />}
-          pointing="top left"
-          icon={null}
-        >
+        <Dropdown trigger={<Icon name="bars" size="large" />} pointing="top left" icon={null}>
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to="/aboutus">
               <Icon name="info circle" /> About Us
@@ -72,126 +62,30 @@ export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
           placeholder="Search by book title..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ marginBottom: "8px", width:"270px"}}
+          style={{ marginBottom: "8px", width: "270px" }}
         />
       </Menu.Item>
 
-      {/* Ikonat në anën e djathtë */}
+      {/* Right icons */}
       <Menu.Menu position="right">
+        {/* User dropdown */}
         <Menu.Item>
-          <Dropdown trigger={trigger} options={options} pointing="top right" icon={null} />
+          <Dropdown trigger={trigger} pointing="top right" icon={null}>
+            <Dropdown.Menu>
+              {userOptions.map((opt) => (
+                <Dropdown.Item key={opt.key} as={Link} to={opt.to} text={opt.text} />
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
         </Menu.Item>
-        <Menu.Item>
-          <Icon name="heart outline" size="large" />
-        </Menu.Item>
-        <Menu.Item style={{ position: "relative" }}>
+
+        {/* Shopping cart */}
+        <Menu.Item style={{ position: "relative" }}
+        onClick={()=>navigate("/cart")}>
           <Icon name="shopping cart" size="large" />
-          <span
-            style={{
-              position: "absolute",
-              top: "2px",
-              right: "2px",
-              color: "white",
-              background: "gold",
-              borderRadius: "50%",
-              padding: "3px 6px",
-              fontSize: "12px",
-            }}
-          >
-            {cartCount}
-          </span>
+          
         </Menu.Item>
       </Menu.Menu>
     </Menu>
   );
 }
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import { Input, Icon, Menu, Dropdown } from "semantic-ui-react";
-
-// interface NavbarProps {
-//   searchTerm: string;
-//   setSearchTerm: (term: string) => void;
-// }
-
-// export default function Navbar({ searchTerm, setSearchTerm }: NavbarProps) {
-//   const [cartCount] = useState(3);
-
-//   const trigger = (
-//     <span>
-//       <Icon name="user circle" size="large" />
-//     </span>
-//   );
-
-//   const options = [
-//     { key: "dashboard", text: "Dashboard" },
-//     { key: "orders", text: "Orders" },
-//     { key: "cart", text: "Cart Page" },
-//     { key: "checkout", text: "Checkout" },
-//     { key: "logout", text: "Logout" },
-//   ];
-
-//   return (
-//     <Menu
-//       secondary
-//       style={{
-//         padding: "10px 20px",
-//         alignItems: "center",
-//         position: "fixed",
-//         top: 0,
-//         left: 0,
-//         right: 0,
-//         zIndex: 1000,
-//         background: "white",
-//       }}
-//     >
-//       {/* 3 vijat */}
-//       <Menu.Item>
-//         <Icon name="bars" size="large" />
-//       </Menu.Item>
-
-//       {/* Search */}
-//       <Menu.Item style={{ flex: 1 }}>
-//         <Input
-//           placeholder="Search by book title..."
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//         />
-//       </Menu.Item>
-
-//       {/* Ikonat djathtas */}
-//       <Menu.Menu position="right">
-//         <Menu.Item>
-//           <Dropdown trigger={trigger} options={options} pointing="top right" icon={null} />
-//         </Menu.Item>
-//         <Menu.Item>
-//           <Icon name="heart outline" size="large" />
-//         </Menu.Item>
-//         <Menu.Item style={{ position: "relative" }}>
-//           <Icon name="shopping cart" size="large" />
-//           <span
-//             style={{
-//               position: "absolute",
-//               top: "2px",
-//               right: "2px",
-//               color: "white",
-//               background: "gold",
-//               borderRadius: "50%",
-//               padding: "3px 6px",
-//               fontSize: "12px",
-//             }}
-//           >
-//             {cartCount}
-//           </span>
-//         </Menu.Item>
-//       </Menu.Menu>
-//     </Menu>
-//   );
-// }

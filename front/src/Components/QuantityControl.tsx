@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
 interface QuantityProps {
   initialQuantity?: number;
   maxQuantity?: number;
+  onChange?: (val: number) => void;
 }
 
 const QuantityControl: React.FC<QuantityProps> = ({ 
   initialQuantity = 1, 
-  maxQuantity = 15
+  maxQuantity = 15,
+  onChange
 }) => {
   const [quantity, setQuantity] = useState(initialQuantity);
+
+  useEffect(() => {
+    onChange?.(quantity); // çdo ndryshim i brendshëm njofton prindin
+  }, [quantity, onChange]);
 
   const increment = () => {
     if (quantity < maxQuantity) {
@@ -40,7 +46,7 @@ const QuantityControl: React.FC<QuantityProps> = ({
             borderRadius: "10px",
             fontSize: "12px",
             fontWeight: "bold",
-            backgroundColor: "yellow", // ngjyra e butonit
+            backgroundColor: "rgba(128, 132, 77, 0.3)", 
             color: "white",
             boxShadow: "0 4px 6px rgba(43, 41, 41, 0.3)"    
           }}
@@ -75,7 +81,7 @@ const QuantityControl: React.FC<QuantityProps> = ({
             borderRadius: "10px",
             fontSize: "12px",
             fontWeight: "bold",
-            background: "yellow",
+            background: "rgba(128, 132, 77, 0.3)",
             color:"white",
              boxShadow: "0 4px 6px rgba(43, 41, 41, 0.3)"
              //background: "linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet)",

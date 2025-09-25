@@ -89,8 +89,8 @@ export default function BookTable() {
               <TableCell>
                 <Image
                   src={item.photoUrl  ? `https://localhost:7141${item.photoUrl}`
-      : "https://via.placeholder.com/50"
-  }
+                 : "https://via.placeholder.com/50"
+          }
                     //|| "https://via.placeholder.com/50"}
                   size="tiny"
                   circular

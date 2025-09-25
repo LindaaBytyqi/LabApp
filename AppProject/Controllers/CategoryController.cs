@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using Application.Services;
+using AutoMapper;
 //using AutoMapper.Execution;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Model;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace API.Controllers
@@ -62,6 +63,13 @@ namespace API.Controllers
         {
             var model = await service.GetCategorySelectListAsync(cancellationToken);
             return Ok(model);
+        }
+
+        [HttpGet("GetBooksByCategory")]
+        public async Task<IActionResult> GetBooksByCategory(CancellationToken cancellationToken)
+        {
+            var result = await service.GetBooksByCategory(cancellationToken);
+            return Ok(result);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Entities
     public class CartItem
     {
         public Guid Id { get; set; }
-   
+        public string PhotoUrl { get; set; }
         public Guid BookId { get; set; }
         public int Quantity { get; set; }
         public Book Book { get; set; }

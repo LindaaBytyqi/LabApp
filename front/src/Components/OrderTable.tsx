@@ -6,10 +6,8 @@ import { CreateOrderItem } from "../Interfaces/CreateOrderItem";
 import { OrderService } from "../Services/OrderService";
 import { Header, Segment } from "semantic-ui-react";
 import { CartItemModel } from "../Interfaces/CartItemModel";
+import Navbar from "./Navbar";
 
-// interface CheckoutFormProps {
-//   cartItems: CreateOrderItem[]; // merr items nga cart
-// }
 
 export default function OrderTable() {
   const navigate = useNavigate();
@@ -39,20 +37,25 @@ export default function OrderTable() {
     try {
       const result = await OrderService.CreateOrder(values);
       console.log("Order created:", result);
-      navigate(`/order/${result.id}`); // shkon në faqen e order details
+      // navigate(`/order/${result.id}`); // shkon në faqen e order details
+      
+       navigate(`/order-success/${result.orderId}`);
     } catch (error) {
       console.error("Error creating order:", error);
     }
   };
 
     return(
-    <Segment style={{ maxWidth: "600px", margin: "30px auto", padding: "20px" }}>
+      <>   
+         <Navbar searchTerm={""} setSearchTerm={() => {}} />  
+           
+    <Segment style={{ maxWidth: "600px", margin: "30px auto", padding: "20px", marginTop: "120px"}}>
   <Header as="h2" dividing>
     Checkout
   </Header>
 
   {/* Krijojmë hapësirë të zbrazët midis Checkout dhe Personal Information */}
-  <div style={{ height: "20px" }}></div>
+  <div style={{ height: "25px" }}></div>
 
   <Header as="h4">Personal Information</Header>
 
@@ -97,6 +100,8 @@ export default function OrderTable() {
     </button>
   </form>
 </Segment>
+
+</>
   );
 }
   
