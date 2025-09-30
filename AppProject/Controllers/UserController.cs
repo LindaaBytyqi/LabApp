@@ -24,7 +24,7 @@ namespace API.Controllers
             var result = await service.LoginAsync(loginModel, cancellationToken);
             return Ok(result);
         }
-        //[Authorize(Roles = "Admin,Coordinator")]
+        [Authorize(Roles = "Admin,Coordinator")]
 
         [HttpPost]
         public async Task<IActionResult> AddOrEditUserAsync([FromBody] UserModel model, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@ namespace API.Controllers
             var updateUser = await service.AddOrEditUserAsync(model, cancellationToken);
             return Ok(updateUser);
         }
-        //[Authorize(Roles = "Admin,Coordinator")]
+        [Authorize(Roles = "Admin,Coordinator")]
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {

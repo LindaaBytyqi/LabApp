@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace Domain.Model
         public string ZipCode { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public PaymentMethod PaymentMethod { get; set; }
 
         public List<OrderItemModel> OrderItems { get; set; }
     }

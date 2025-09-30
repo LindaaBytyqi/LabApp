@@ -12,6 +12,7 @@ namespace Domain.Interfaces
     {
        
             Task<OrderModel> CreateOrderAsync(CreateOrderModel model);
+            Task<OrderModel> UpdateOrderAsync(OrderModel model);
             Task<List<OrderModel>> GetAllOrdersAsync();
             Task<OrderModel> GetOrderByIdAsync(Guid id);
 

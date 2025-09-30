@@ -153,5 +153,41 @@ namespace Application.Services
 
             return _mapper.Map<List<OrderModel>>(orders);
         }
+
+
+
+        public async Task<OrderModel> UpdateOrderAsync(OrderModel model)
+        {
+            // 1. Gjen entitetin ekzistues të porosisë në databazë
+            var existingOrder = await _context.Orders
+                .FirstOrDefaultAsync(o => o.Id == model.OrderId);
+
+            if (existingOrder == null)
+            {
+                throw new KeyNotFoundException($"Porosia me ID {model.OrderId} nuk u gjet.");
+            }
+
+            // 2. Përditëso vetëm fushat që mund të modifikohen nga koordinatori.
+            // Nuk duhet të ndryshojmë OrderItems ose TotalPrice këtu, vetëm detajet e klientit/adresës.
+
+            // Mapimi manual i fushave:
+            existingOrder.FullName = model.FullName; // SUPPOZOJMË QË KËTU ËSHTË MAPIMI PËR FullName
+            existingOrder.Email = model.Email;
+            existingOrder.Phone = model.Phone;
+            existingOrder.Address = model.Address;
+            existingOrder.City = model.City;
+            existingOrder.ZipCode = model.ZipCode;
+
+            // Optional: Kjo fushë mund të shtohet/modifikohet nëse keni një fushë Statusi
+            // existingOrder.Status = model.Status; 
+
+            // 3. Ruaj ndryshimet në databazë
+            _context.Orders.Update(existingOrder);
+            await _context.SaveChangesAsync();
+
+            // 4. Kthe modelin e përditësuar
+            return _mapper.Map<OrderModel>(existingOrder);
+        }
     }
 }
+

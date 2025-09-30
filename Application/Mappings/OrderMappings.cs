@@ -70,7 +70,8 @@ namespace Application.Mappings
             // Mapping për Order ↔ OrderModel (për response)
             CreateMap<Order, OrderModel>()
                 .ForMember(x => x.OrderId, y => y.MapFrom(src => src.Id))
-                .ForMember(x => x.OrderItems, y => y.MapFrom(src => src.OrderItems));
+                .ForMember(x => x.OrderItems, y => y.MapFrom(src => src.OrderItems))
+                 .ForMember(x => x.PaymentMethod, y => y.MapFrom(src => src.PaymentMethod.ToString()));
 
             // Mapping nga CreateOrderModel → Order (për krijim)
             CreateMap<CreateOrderModel, Order>()
