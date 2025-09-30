@@ -4,6 +4,13 @@ import { OrderService } from "../Services/OrderService";
 import { OrderModel } from "../Interfaces/OrderModel";
 import { Segment, Header, Divider } from "semantic-ui-react";
 import Navbar from "./Navbar";
+import { PaymentMethod } from "../Interfaces/PaymentMethod";
+
+
+const PaymentLabels: Record<PaymentMethod, string> = {
+  [PaymentMethod.CashOnDelivery]: "Cash on Delivery",
+  [PaymentMethod.Online]: "Online Payment",
+};
 
 export default function OrderSuccess() {
   const { id } = useParams<{ id: string }>();
@@ -36,6 +43,8 @@ export default function OrderSuccess() {
         <p><strong>Email:</strong> {order.email}</p>
         <p><strong>Phone:</strong> {order.phone}</p>
         <p><strong>Address:</strong> {order.address}, {order.city}, {order.zipCode}</p>
+       <p><strong>Payment Method:</strong> {PaymentLabels[order.paymentMethod]}</p>
+
         <Divider />
         <p><strong>Items:</strong></p>
         <ul>

@@ -48,14 +48,15 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
 
   const sidebarLinks = [
     { name: "Dashboard Admin", path: "/AdminDashboard", icon: <MdDashboard /> },
-    { name: "Dashboard Coordinator", path: "/Coordiantor Dashboard", icon: <MdDashboard /> },
+    { name: "Dashboard Coordinator", path: "/CoordinatorDashboard", icon: <MdDashboard /> },
     { name: "Authors", path: "/Author", icon: <FaUserEdit /> },
     { name: "Publisher", path: "/Publisher", icon: <FaBuilding /> },
     { name: "Category", path: "/Category", icon: <MdCategory /> },
     { name: "Books", path: "/Book", icon: <FaBook /> },
-    { name: "Logout", path: "/", icon: <FaSignOutAlt /> },
-    //{name:"Orders",path:"/order-success/:id",icon:<FaShoppingCart/>},
      {name:"Orders",path:"/OrderEdit",icon:<FaShoppingCart/>},
+    { name: "Logout", path: "/", icon: <FaSignOutAlt /> },
+    // {name:"Orders",path:"/order-success/:id",icon:<FaShoppingCart/>},
+    
   ];
   let filteredLinks = [];
 
@@ -74,12 +75,9 @@ if (isAdmin) {
 } else if (isCoordinator) {
   filteredLinks = sidebarLinks.filter(link =>
     [
-      // "/checkout",
-      "/CoordinatorDashboard",
-      // "/order-success/:id",
+       "/CoordinatorDashboard",
       "/OrderEdit",
-       "/"
-      
+      "/"
     ].includes(link.path)
   );
 } 

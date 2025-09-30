@@ -89,7 +89,7 @@ export default function CartPage() {
                      <strong>Author(s):</strong> {item.authors}
                   </p>
                   <p style={{ margin: 0, color: "#666" }}>
-                    <strong>Qty:</strong> {item.quantity}
+                    <strong>Quantity:</strong> {item.quantity}
                   </p>
                   <Button
                     basic
@@ -122,9 +122,6 @@ export default function CartPage() {
                 <p style={{ margin: 0 }}>
                   <strong>Subtotal:</strong> ${subtotal.toFixed(2)}
                 </p>
-                <small style={{ color: "#666" }}>
-                  Shipping and taxes calculated at checkout.
-                </small>
               </div>
               <Button
                 color="blue"

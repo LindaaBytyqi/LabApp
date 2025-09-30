@@ -6,6 +6,7 @@ import { CreateOrderItem } from "../Interfaces/CreateOrderItem";
 import { OrderService } from "../Services/OrderService";
 import { Header, Segment } from "semantic-ui-react";
 import { CartItemModel } from "../Interfaces/CartItemModel";
+import { PaymentMethod } from "../Interfaces/PaymentMethod";
 import Navbar from "./Navbar";
 
 
@@ -24,13 +25,27 @@ export default function OrderTable() {
     city: "",
     zipCode: "",
     items: cartItems,
+    paymentMethod: PaymentMethod.CashOnDelivery,
   });
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+
+
+  //   setValues({ ...values, [name]: value });
+  // };
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const { name, value } = e.target;
+
+  if (name === "paymentMethod") {
+    setValues({ ...values, paymentMethod: Number(value) as PaymentMethod });
+  } else {
     setValues({ ...values, [name]: value });
-  };
+  }
+};
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +70,7 @@ export default function OrderTable() {
   </Header>
 
   {/* Krijojmë hapësirë të zbrazët midis Checkout dhe Personal Information */}
-  <div style={{ height: "25px" }}></div>
+  <div style={{ height: "5px" }}></div>
 
   <Header as="h4">Personal Information</Header>
 
@@ -94,6 +109,57 @@ export default function OrderTable() {
         <input type="text" name="zipCode" value={values.zipCode} onChange={handleChange} required />
       </div>
     </div>
+
+  <div className="field">
+  <label>Payment Method</label>
+  <select
+    name="paymentMethod"
+    value={values.paymentMethod}
+    onChange={handleChange}
+    required
+  >
+    <option value={PaymentMethod.CashOnDelivery}>Cash on Delivery</option>
+    <option value={PaymentMethod.Online}>Online Payment</option>
+  </select>
+</div>
+
+{/* Shfaq fushat e kartës vetëm kur zgjedhet Online */}
+{values.paymentMethod === PaymentMethod.Online && (
+  <>
+    <div className="field">
+      <label>Card Number</label>
+      <input
+        type="text"
+        name="cardNumber"
+        placeholder="1234 5678 9012 3456"
+        maxLength={16}       // lejon vetëm 16 karaktere
+        pattern="\d{16}" 
+        required
+      />
+    </div>
+
+    <div className="two fields">
+      <div className="field">
+        <label>Expiry Date</label>
+        <input
+          type="text"
+          name="expiryDate"
+          placeholder="MM/YY"
+          required
+        />
+      </div>
+      <div className="field">
+        <label>CVV</label>
+        <input
+          type="password"
+          name="cvv"
+          placeholder="123"
+          required
+        />
+      </div>
+    </div>
+  </>
+)}
 
     <button type="submit" className="ui green button">
       Place Order

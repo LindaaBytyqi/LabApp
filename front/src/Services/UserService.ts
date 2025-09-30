@@ -99,6 +99,10 @@ export class UserService {
   }
   return guestId;
 }
+    public static GetAuthToken(): string | null {
+        // Merr tokenin nga localStorage ku u ruajt gjatë Login
+        return localStorage.getItem("jwt");
+    }
 
 
 

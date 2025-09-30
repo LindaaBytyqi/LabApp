@@ -1,4 +1,5 @@
 import { CreateOrderItem } from "./CreateOrderItem";
+import { PaymentMethod } from "./PaymentMethod";
 
 export interface CreateOrder {
   fullName: string;
@@ -8,4 +9,5 @@ export interface CreateOrder {
   city: string;
   zipCode: string;
   items: CreateOrderItem[];
+  paymentMethod: PaymentMethod;
 }
